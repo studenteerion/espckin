@@ -1,0 +1,10 @@
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\bin\Debug\esperimento_mati_abla.exe.config
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\bin\Debug\esperimento_mati_abla.exe
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\bin\Debug\esperimento_mati_abla.pdb
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.csproj.AssemblyReference.cache
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.Form1.resources
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.Properties.Resources.resources
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.csproj.GenerateResource.cache
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.csproj.CoreCompileInputs.cache
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.exe
+C:\Users\ravasio.22162\Desktop\sitlab\esperimento_mati_abla\esperimento_mati_abla\obj\Debug\esperimento_mati_abla.pdb
