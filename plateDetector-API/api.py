@@ -1,76 +1,100 @@
+from flask import Flask, request, jsonify
 import cv2
 import numpy as np
-import time
 import easyocr
 from ultralytics import YOLO
-from cv2 import dnn_superres
-from flask import Flask, request, jsonify
-import io
+import re
+import base64
+
+# Function to check results (custom logic you defined)
+def checkResult(detections):
+    # Check if detections list is empty
+    if not detections:
+        return detections
+
+    # If there's only one detection, return it directly
+    if len(detections) == 1:
+        return detections
+
+    results = []
+
+    # Logic to handle merging (modify this logic based on your needs)
+    for i in range(len(detections) - 1):
+        detection1 = detections[i]
+        detection2 = detections[i + 1]
+
+        # Check if the two detections are sufficiently close to be merged (based on your threshold)
+        # Example: Use bounding box overlap or proximity to decide
+        if detection1[3] > detection2[1] and detection1[2] > detection2[0]:  # Check if x1, y1 overlap with x2, y2
+            # Here, I'm just merging detections without assuming they have 7 elements
+            merged_detection = detection1 + detection2  # Customize this based on your needs
+            results.append(merged_detection)
+        else:
+            # No merging needed, just append the detection as is
+            results.append(detection1)
+
+    # Return merged or original detections
+    return results
+
+def image_to_base64(image):
+    try:
+        _, buffer = cv2.imencode('.jpg', image)
+        img_bytes = buffer.tobytes()
+        return base64.b64encode(img_bytes).decode('utf-8')
+    except Exception as e:
+        raise ValueError("Error encoding image to base64: " + str(e))
 
 # Initialize Flask app
 app = Flask(__name__)
 
 # Initialize EasyOCR and YOLO models
-reader = easyocr.Reader(['en'])
-model = YOLO("plai.pt")
-
-# Initialize Super-Resolution model
-sr = dnn_superres.DnnSuperResImpl_create()
-model_path = "EDSR_x3.pb"
-sr.readModel(model_path)
-sr.setModel("edsr", 3)
+reader = easyocr.Reader(['en'])  # Initialize EasyOCR for text recognition (English language)
+model = YOLO("plai.pt")  # Load the YOLO model for object detection
 
 # API endpoint to process an image
 @app.route('/process_image', methods=['POST'])
 def process_image():
-    # Check if the request contains the image in the body
-    if not request.data:
-        return jsonify({'error': 'No image data in the request body'}), 400
+    if 'image' not in request.files:
+        return jsonify({'error': 'No image found in request'}), 400
 
-    # Get the raw image data from the request body
-    img_bytes = request.data
+    file = request.files['image']
+    if file.content_type not in ['image/jpeg', 'image/png']:
+        return jsonify({'error': 'Invalid image format. Only JPEG and PNG are supported'}), 400
 
-    # Convert the raw bytes into a NumPy array and then decode it into an image
     try:
-        np_array = np.frombuffer(img_bytes, np.uint8)
+        file_bytes = file.read()
+        np_array = np.frombuffer(file_bytes, np.uint8)
         frame = cv2.imdecode(np_array, cv2.IMREAD_COLOR)
     except Exception as e:
         return jsonify({'error': f'Error processing image: {str(e)}'}), 500
 
-    # Initialize counters for correct and incorrect results
-    right_found = 0
-    wrong_ones = 0
+    ocr_results = []
 
-    # Perform inference on the uploaded frame using the YOLO model
+    # Perform object detection using YOLO model
     results = model(frame)
 
-    # Iterate over the detection results
     for result in results:
         for box in result.boxes:
             x1, y1, x2, y2 = map(int, box.xyxy[0].tolist())
             cropped_frame = frame[y1:y2, x1:x2]
 
-            # Apply Super-Resolution (EDSR) to upscale the cropped image
-            upscaled_frame = sr.upsample(cropped_frame)
+            # Use EasyOCR to extract text from the cropped region
+            ocr_result = reader.readtext(cropped_frame)
 
-            # Use EasyOCR to extract text from the upscaled image
-            ocr_result = reader.readtext(upscaled_frame)
-
-            # Loop through the OCR results
             for (bbox, text, prob) in ocr_result:
-                # Normalize text: convert to uppercase and remove spaces
-                text = text.upper().replace(" ", "")
+                cleaned_text = re.sub(r'[^a-zA-Z0-9]', '', text.upper())  # Uppercase and remove special characters
+                ocr_results.append(cleaned_text)
 
-                # Check if the extracted text matches the target
-                if text == "AA123AA":
-                    right_found += 1
-                else:
-                    wrong_ones += 1
+                # Draw the bounding box on the original image
+                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
 
-    # Return the result counts as a JSON response
+    # Use checkResult function on the OCR results list
+    processed_results = checkResult(ocr_results)
+    modified_image_base64 = image_to_base64(frame)
+
     return jsonify({
-        'correct_count': right_found,
-        'incorrect_count': wrong_ones
+        'text': processed_results,  # List of extracted text from the image
+        'image': modified_image_base64
     })
 
 # Run the Flask app
