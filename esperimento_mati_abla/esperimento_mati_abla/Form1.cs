@@ -19,14 +19,6 @@ namespace esperimento_mati_abla
     public partial class Form1 : Form
 
     {
-        
-
-        public class Info
-        {
-            public string targa { get; set; }
-            public string mail { get; set; }
-            public string zona_accesso { get; set; }
-        }
 
         public List<Info> info=new List<Info>();
 
@@ -41,13 +33,29 @@ namespace esperimento_mati_abla
         private async void button1_Click(object sender, EventArgs e)
         {
             // Esegui una richiesta GET o POST
-            string url = "http://127.0.0.1:9000/" + targa;  // Modifica con l'URL desiderato
-            string result = await MakeHttpRequest(url);
-            label1.Text = result;
+            string url = "http://127.0.0.1:9898/all";  // Modifica con l'URL desiderato
+            List<Info> result = await MakeHttpRequest(url);
+            //label1.Text = result[0].targa;
+         
+            DataTable table = new DataTable();
+
+            table.Columns.Add("targhe", typeof(string));
+
+            table.Rows.Add(result);
+
+            Console.WriteLine("targhe");
+
+            dataGridView1.DataSource = result;
+
+            /*foreach (Info info in result)
+            {
+                Console.WriteLine(info.targa);   
+            }*/
+
         }
 
         
-        private async Task<string> MakeHttpRequest(string url)
+        private async Task<List<Info>> MakeHttpRequest(string url)
         {
             // Crea un'istanza di HttpClient
             using (HttpClient client = new HttpClient())
@@ -61,16 +69,17 @@ namespace esperimento_mati_abla
                     var resultString= await response.Content.ReadAsStringAsync();
                     
                     response.EnsureSuccessStatusCode();  // Lancia un'eccezione se il codice di stato non è OK
-                    var professore = JsonConvert.DeserializeObject<Info>(resultString);
+                    var professore = JsonConvert.DeserializeObject<List<Info>>(resultString);
+                    Console.WriteLine(professore[0].targa);
                     // Ottieni la risposta come stringa
                     string responseBody = await response.Content.ReadAsStringAsync();
 
-                    return responseBody;
+                    return professore;
                 }
                 catch (Exception ex)
                 {
                     // Gestione degli errori, ad esempio se il server non è raggiungibile
-                    return $"Errore: {ex.Message}";
+                    return new List<Info>();
                 }
             }
         }
