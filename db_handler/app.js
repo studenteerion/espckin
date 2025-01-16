@@ -39,7 +39,11 @@ function getAll(req, res) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
     res.status(200);
 
-    db.query("SELECT professore.nome,professore.cognome,professore.mail,macchine.targa,accesso.zona_accesso FROM macchina_professore JOIN professore on macchina_professore.id_professore = professore.id_professore JOIN macchine on macchina_professore.id_macchina = macchine.targa JOIN accesso on professore.id_zona = accesso.id_accesso", (err, results) => {
+    db.query(`SELECT professore.id_professore,professore.nome,professore.cognome,professore.mail,macchine.targa,accesso.zona_accesso 
+        FROM macchina_professore 
+        JOIN professore on macchina_professore.id_professore = professore.id_professore 
+        JOIN macchine on macchina_professore.id_macchina = macchine.targa 
+        JOIN accesso on professore.id_zona = accesso.id_accesso`, (err, results) => {
         if (err) {
             res.status(500).send({ error: err.message });
         } else {
@@ -54,7 +58,7 @@ function getTeachers(req, res) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
     db.query(
-        `SELECT professore.nome,professore.cognome,professore.mail,macchine.targa,accesso.zona_accesso 
+        `SELECT professore.id_professore,professore.nome,professore.cognome,professore.mail,macchine.targa,accesso.zona_accesso 
         FROM macchina_professore 
         JOIN professore on macchina_professore.id_professore = professore.id_professore 
         JOIN macchine on macchina_professore.id_macchina = macchine.targa 
@@ -77,9 +81,12 @@ function getPlates(req, res) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
     db.query(
-        `SELECT m.* FROM macchine m 
-         JOIN macchina_professore mp ON m.targa = mp.id_macchina 
-         WHERE mp.id_professore = ?`,
+        `SELECT professore.id_professore,professore.nome,professore.cognome,professore.mail,macchine.targa,accesso.zona_accesso 
+        FROM macchina_professore 
+        JOIN professore on macchina_professore.id_professore = professore.id_professore 
+        JOIN macchine on macchina_professore.id_macchina = macchine.targa 
+        JOIN accesso on professore.id_zona = accesso.id_accesso
+        WHERE professore.id_professore=?`,
         [teacher],
         (err, results) => {
             if (err) {
@@ -97,7 +104,10 @@ function getEntry(req, res) {
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
 
     db.query(
-        `SELECT * FROM accesso WHERE id_accesso = ?`,
+        `SELECT professore.id_professore,professore.nome,professore.cognome,professore.mail,accesso.zona_accesso 
+        FROM professore 
+        JOIN accesso on professore.id_zona = accesso.id_accesso
+        WHERE accesso.zona_accesso=?`,
         [entry],
         (err, results) => {
             if (err) {
