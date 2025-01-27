@@ -9,21 +9,28 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MjpegProcessor;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Security.Policy;
+using Newtonsoft.Json;
 
 namespace prova_streaming
 {
     public partial class Form1 : Form
     {
         private MjpegDecoder mjpeg;
+        private string plateOCR_url;
 
         public Form1()
         {
             InitializeComponent();
+            plateOCR_url = "";
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             getframe();
+            plateOCR();
         }
 
         private void getframe()
@@ -33,10 +40,34 @@ namespace prova_streaming
             mjpeg.Error += mjpeg_Error;
 
             mjpeg.ParseStream(new Uri("http://192.168.103.50:81/stream"));
-
             MessageBox.Show("Frame Catturato");
+
+            mjpeg.StopStream();
         }
 
+        private async Task<plateOCR> plateOCR()
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    HttpResponseMessage response = await client.GetAsync(plateOCR_url);  // Usa PostAsync per le richieste POST
+
+                    var resultString = await response.Content.ReadAsStringAsync();
+
+                    response.EnsureSuccessStatusCode();  // Lancia un'eccezione se il codice di stato non è OK
+
+                    var results = JsonConvert.DeserializeObject<plateOCR>(resultString);
+
+                    return results;
+                }
+                catch (Exception ex)
+                {
+                    // Gestione degli errori, ad esempio se il server non è raggiungibile
+                    return null;
+                }
+            }
+        }
 
         private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
         {
@@ -49,7 +80,7 @@ namespace prova_streaming
             System.Drawing.Image newImg = (System.Drawing.Image)bmp.Clone();
             bmp.Dispose();
 
-            newImg.RotateFlip(RotateFlipType.RotateNoneFlipX);
+            newImg.RotateFlip(RotateFlipType.Rotate270FlipNone);
 
             System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(newImg);
             string drawString = "camera!";
