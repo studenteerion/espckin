@@ -1,0 +1,30 @@
+body {
+    padding-top: 20px;
+}
+.navbar-brand {
+    font-size: 1.8em;
+}
+.sidebar {
+    position: fixed;
+    top: 80px;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #f8f9fa;
+    padding-top: 20px;
+}
+.sidebar a {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: #495057;
+    display: block;
+}
+.sidebar a:hover {
+    background-color: #e9ecef;
+}
+.content {
+    margin-left: 270px;
+}
+.content h2 {
+    margin-top: 20px;
+}

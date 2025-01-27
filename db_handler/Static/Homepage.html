@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Documentazione del Progetto</title>
+    
+    <!-- Inclusione di Bootstrap (CDN) -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEJ3QKHcVt7pS80g3w9jLx2bKDJt25eAPeMz6fM7l2QUBjqirXFEppKwx3si5" crossorigin="anonymous">
+    
+    <!-- Font Awesome per icone -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Estilo personalizzato per la documentazione -->
+    <style>
+        body {
+            padding-top: 20px;
+        }
+        .navbar-brand {
+            font-size: 1.8em;
+        }
+        .sidebar {
+            position: fixed;
+            top: 80px;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #f8f9fa;
+            padding-top: 20px;
+        }
+        .sidebar a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #495057;
+            display: block;
+        }
+        .sidebar a:hover {
+            background-color: #e9ecef;
+        }
+        .content {
+            margin-left: 270px;
+        }
+        .content h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Barra di navigazione -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <a class="navbar-brand" href="#">Documentazione</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </nav>
+
+    <!-- Sidebar di navigazione -->
+    <div class="sidebar">
+        <h4 class="text-center">Indice</h4>
+        <a href="#overview">Panoramica</a>
+        <a href="#installation">Installazione</a>
+        <a href="#usage">Uso</a>
+        <a href="#api">API</a>
+        <a href="#faq">FAQ</a>
+    </div>
+
+    <!-- Contenuto principale -->
+    <div class="content">
+        <div class="container">
+            <h1>Documentazione del Progetto</h1>
+            <p>Benvenuti nella documentazione ufficiale del progetto. In questa sezione troverai tutte le informazioni necessarie per configurare, utilizzare e integrare il sistema.</p>
+
+            <!-- Sezione Panoramica -->
+            <section id="overview">
+                <h2>Panoramica</h2>
+                <p>Questo progetto è un'applicazione web sviluppata con Node.js e Express, pensata per...</p>
+                <p>La sua struttura prevede una gestione semplice delle risorse statiche e una configurazione minimal per un rapido avvio.</p>
+            </section>
+
+            <!-- Sezione Installazione -->
+            <section id="installation">
+                <h2>Installazione</h2>
+                <h4>Requisiti</h4>
+                <ul>
+                    <li>Node.js (versione 14 o successiva)</li>
+                    <li>npm (Node Package Manager)</li>
+                </ul>
+                <h4>Istruzioni</h4>
+                <p>Per installare l'applicazione, segui questi passaggi:</p>
+                <ol>
+                    <li>Clona il repository: <code>git clone https://github.com/tuo-repo.git</code></li>
+                    <li>Installa le dipendenze: <code>npm install</code></li>
+                    <li>Avvia il server: <code>npm start</code></li>
+                    <li>Visita <code>http://127.0.0.1:9898</code> nel tuo browser</li>
+                </ol>
+            </section>
+
+            <!-- Sezione Uso -->
+            <section id="usage">
+                <h2>Uso</h2>
+                <p>Una volta avviato il server, puoi navigare nella tua applicazione tramite il browser.</p>
+            </section>
+
+            <!-- Sezione API -->
+            <section id="api">
+                <h2>API</h2>
+                <p>Qui trovi la documentazione delle API disponibili nell'applicazione.</p>
+                <h4>Endpoint</h4>
+                <ul>
+                    <li><strong>GET</strong> /all - Recupera tutte le risorse</li>
+                    <li><strong>POST</strong> /api/v1/resources - Crea una nuova risorsa</li>
+                    <li><strong>GET</strong> /api/v1/resources/:id - Recupera una risorsa specifica</li>
+                </ul>
+            </section>
+
+            <!-- Sezione FAQ -->
+            <section id="faq">
+                <h2>FAQ</h2>
+                <p>Qui troverai le risposte alle domande frequenti.</p>
+                <h4>Come posso avviare l'applicazione?</h4>
+                <p>Segui le istruzioni nella sezione di installazione.</p>
+                <h4>Cosa fare se ricevo un errore?</h4>
+                <p>Controlla la console per eventuali messaggi di errore e assicurati che tutte le dipendenze siano correttamente installate.</p>
+            </section>
+        </div>
+    </div>
+
+    <!-- Inclusione di Bootstrap JS (necessario per alcuni componenti come navbar toggler) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-4Q2FlD9D4TcZqgV5b7ORQrr6ZQoDdjYY3EZr6f4hg9kT6IQFtvfdfv7FG0eOdJH5" crossorigin="anonymous"></script>
+</body>
+</html>
