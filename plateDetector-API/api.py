@@ -4,7 +4,6 @@ import numpy as np
 import easyocr
 from ultralytics import YOLO
 import re
-import base64
 
 # Function to check results (custom logic you defined)
 def checkResult(detections):
@@ -36,14 +35,6 @@ def checkResult(detections):
     # Return merged or original detections
     return results
 
-def image_to_base64(image):
-    try:
-        _, buffer = cv2.imencode('.jpg', image)
-        img_bytes = buffer.tobytes()
-        return base64.b64encode(img_bytes).decode('utf-8')
-    except Exception as e:
-        raise ValueError("Error encoding image to base64: " + str(e))
-
 # Initialize Flask app
 app = Flask(__name__)
 
@@ -69,6 +60,7 @@ def process_image():
         return jsonify({'error': f'Error processing image: {str(e)}'}), 500
 
     ocr_results = []
+    bbox_points = []
 
     # Perform object detection using YOLO model
     results = model(frame)
@@ -83,18 +75,26 @@ def process_image():
 
             for (bbox, text, prob) in ocr_result:
                 cleaned_text = re.sub(r'[^a-zA-Z0-9]', '', text.upper())  # Uppercase and remove special characters
+                
                 ocr_results.append(cleaned_text)
-
-                # Draw the bounding box on the original image
-                cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
+                
+                current_bbox = [
+                    (x1, y1),  # Top-left corner
+                    (x2, y1),  # Top-right corner
+                    (x1, y2),  # Bottom-left corner
+                    (x2, y2)   # Bottom-right corner
+                ]
+                
+                # Check if the current bbox is already in the list (to remove duplicates)
+                if current_bbox not in bbox_points:
+                    bbox_points.append(current_bbox)
 
     # Use checkResult function on the OCR results list
     processed_results = checkResult(ocr_results)
-    modified_image_base64 = image_to_base64(frame)
 
     return jsonify({
         'text': processed_results,  # List of extracted text from the image
-        'image': modified_image_base64
+        'bbox_points': bbox_points 
     })
 
 # Run the Flask app
