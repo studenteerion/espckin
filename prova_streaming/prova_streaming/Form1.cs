@@ -18,19 +18,26 @@ namespace prova_streaming
 {
     public partial class Form1 : Form
     {
+        System.Drawing.Image imgGlobal;
         private MjpegDecoder mjpeg;
         private string plateOCR_url;
 
         public Form1()
         {
             InitializeComponent();
-            plateOCR_url = "";
+            plateOCR_url = "http://127.0.0.1:5000/process_image";
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private async void button1_Click(object sender, EventArgs e)
         {
             getframe();
-            plateOCR();
+            plateOCR detection = await plateOCR();
+
+            if (detection != null)
+            {
+                textBox1.Text = detection.Text[0];
+
+            }
         }
 
         private void getframe()
@@ -51,23 +58,52 @@ namespace prova_streaming
             {
                 try
                 {
-                    HttpResponseMessage response = await client.GetAsync(plateOCR_url);  // Usa PostAsync per le richieste POST
+                    // Convert the frame (imgGlobal) to a byte array
+                    if (imgGlobal == null)
+                    {
+                        MessageBox.Show("No image captured.");
+                        return null;
+                    }
 
-                    var resultString = await response.Content.ReadAsStringAsync();
+                    using (var ms = new MemoryStream())
+                    {
+                        imgGlobal.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
+                        byte[] imageBytes = ms.ToArray();
 
-                    response.EnsureSuccessStatusCode();  // Lancia un'eccezione se il codice di stato non è OK
+                        // Prepare the image as FormData
+                        var form = new MultipartFormDataContent();
+                        var imageContent = new ByteArrayContent(imageBytes);
+                        imageContent.Headers.ContentType = new MediaTypeHeaderValue("image/jpeg");
+                        form.Add(imageContent, "image", "image.jpg");
 
-                    var results = JsonConvert.DeserializeObject<plateOCR>(resultString);
+                        // Send POST request to Flask API with the image
+                        HttpResponseMessage response = await client.PostAsync(plateOCR_url, form);
 
-                    return results;
+                        // Handle the response
+                        if (response.IsSuccessStatusCode)
+                        {
+                            string resultString = await response.Content.ReadAsStringAsync();
+
+                            // Parse the JSON result into plateOCR class
+                            var results = JsonConvert.DeserializeObject<plateOCR>(resultString);
+
+                            return results;
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Error from Flask API: {response.StatusCode}, {await response.Content.ReadAsStringAsync()}");
+                            return null;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    // Gestione degli errori, ad esempio se il server non è raggiungibile
+                    MessageBox.Show($"Error: {ex.Message}");
                     return null;
                 }
             }
         }
+
 
         private void mjpeg_FrameReady(object sender, FrameReadyEventArgs e)
         {
@@ -84,23 +120,27 @@ namespace prova_streaming
 
             System.Drawing.Graphics gr = System.Drawing.Graphics.FromImage(newImg);
             string drawString = "camera!";
-            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 12);
+            System.Drawing.Font drawFont = new System.Drawing.Font("Arial", 36);
             System.Drawing.SolidBrush drawBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);
 
-            float x = 560.0f;
-            float y = 460.0f;
-            gr.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Green), new System.Drawing.Rectangle(545, 465, 10, 10));
+            float x = 585.0f;
+            float y = 0.0f;
+            gr.FillRectangle(new System.Drawing.SolidBrush(System.Drawing.Color.Green), new System.Drawing.Rectangle(545, 18, 25, 25));
 
             gr.DrawString(drawString, drawFont, drawBrush, x, y);
 
-            gr.DrawString(DateTime.Now.ToLocalTime().ToString(), drawFont, drawBrush, 12, y);
+            gr.DrawString(DateTime.Now.ToLocalTime().ToString(), drawFont, drawBrush, 0, 0);
 
+            imgGlobal = newImg;
             pictureBox1.Image = newImg; //disegna nella box
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
 
             drawFont.Dispose();
             drawBrush.Dispose();
             gr.Dispose();
         }
+
+
 
         private void mjpeg_Error(object sender, MjpegProcessor.ErrorEventArgs e)
         {
