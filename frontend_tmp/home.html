@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Interaction</title>
+    <link rel="stylesheet" type="text/css" href="home.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>API Interaction</h1>
+
+        <button class="btn" onclick="loadAll()">Get All Data</button>
+        <button class="btn" onclick="getByPlate()">Get Teacher by Plate</button>
+        <button class="btn" onclick="getByTeacher()">Get Plate by Teacher</button>
+        <button class="btn" onclick="getByEntry()">Get Teachers by Entry</button>
+
+        <div id="result"></div>
+
+        <h2>Create a Record</h2>
+        <form id="create-form">
+            <input type="text" id="create-table" placeholder="Table Name" required>
+            <textarea id="create-data" placeholder="JSON Data" required></textarea>
+            <button type="submit" class="btn">Create Record</button>
+        </form>
+
+        <h2>Update a Record</h2>
+        <form id="update-form">
+            <input type="text" id="update-table" placeholder="Table Name" required>
+            <input type="text" id="update-id" placeholder="Record ID" required>
+            <textarea id="update-data" placeholder="JSON Data" required></textarea>
+            <button type="submit" class="btn">Update Record</button>
+        </form>
+
+        <h2>Delete a Record</h2>
+        <form id="delete-form">
+            <input type="text" id="delete-table" placeholder="Table Name" required>
+            <input type="text" id="delete-id" placeholder="Record ID" required>
+            <button type="submit" class="btn">Delete Record</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="home.js"></script>
+</body>
+
+</html>

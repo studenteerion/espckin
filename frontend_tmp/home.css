@@ -1,0 +1,11 @@
+body {
+    font-family: Arial, sans-serif;
+}
+.container {
+    margin: 20px;
+}
+.btn {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}

@@ -3,10 +3,12 @@ const path = require("path");
 const fs = require("fs");
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
+const cors= require('cors');
 
 const app = exp();
 const hostname = '127.0.0.1';
 const port = 9898;
+app.use(cors());
 
 const db = mysql.createConnection({
     host: 'localhost',
