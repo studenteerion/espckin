@@ -186,7 +186,7 @@ app.delete("/delete/:table/:id", (req, res) => {
 app.get("/", (req, res) => loadHomepage(req, res)); //shows the docs
 app.get("/all", (req, res) => getAll(req, res)); //answer the complete dataset
 app.get("/plate/:plate", (req, res) => getTeachers(req, res)); //given the plates answer with the teacher infos
-app.get("/teacers/:teachers", (req, res) => getPlates(req, res)); //given the teacher answer with the car infos
+app.get("/teachers/:teachers", (req, res) => getPlates(req, res)); //given the teacher answer with the car infos
 app.get("/entry/:entry", (req, res) => getEntry(req, res)); //get teacher based on their entry
 
 app.listen(port, hostname, () => {
