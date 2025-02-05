@@ -34,7 +34,7 @@ function getByPlate() {
 function getByTeacher() {
     const teacher = prompt("Enter Teacher ID:");
     if (teacher) {
-        fetch(`${apiUrl}/teacers/${teacher}`)
+        fetch(`${apiUrl}/teachers/${teacher}`)
             .then(response => response.json())
             .then(data => {
                 displayResult(data);
@@ -62,10 +62,42 @@ function getByEntry() {
     }
 }
 
-// Function to display the result
+// Function to display the result as a table
 function displayResult(data) {
     const resultDiv = document.getElementById('result');
-    resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+    resultDiv.innerHTML = ''; // Clear previous results
+
+    if (Array.isArray(data) && data.length > 0) {
+        const table = document.createElement('table');
+        table.style.border = '1px solid black';
+        
+        // Create table header
+        const headerRow = document.createElement('tr');
+        const headers = Object.keys(data[0]);
+        headers.forEach(header => {
+            const th = document.createElement('th');
+            th.textContent = header;
+            th.style.border = '1px solid black';
+            headerRow.appendChild(th);
+        });
+        table.appendChild(headerRow);
+
+        // Create rows for each item in the data array
+        data.forEach(item => {
+            const row = document.createElement('tr');
+            headers.forEach(header => {
+                const td = document.createElement('td');
+                td.textContent = item[header] || '';
+                td.style.border = '1px solid black';
+                row.appendChild(td);
+            });
+            table.appendChild(row);
+        });
+
+        resultDiv.appendChild(table);
+    } else {
+        resultDiv.innerHTML = '<p>No data available.</p>';
+    }
 }
 
 // Create record
