@@ -7,6 +7,15 @@ init()
 
 FILE_PATH = "./log.json"
 
+def syslog():
+    day = datetime.now().strftime('%d')
+    month = datetime.now().strftime('%m')
+    year = datetime.now().strftime('%Y')
+    hour = datetime.now().strftime('%H')
+    min = datetime.now().strftime('%M')
+    sec = datetime.now().strftime('%S')
+    composed = f"[{year}/{month}/{day} - {hour}:{min}:{sec}] - {Fore.LIGHTBLUE_EX}SYS{Fore.RESET} - "
+    return composed
 
 def savelog(user,route):
     timestamp = datetime.now().strftime('%Y/%m/%d - %H:%M:%S')
@@ -14,10 +23,13 @@ def savelog(user,route):
     new_data = {"timestamp": timestamp, "client_auth": user,"request_route": route}
 
     if os.path.exists(FILE_PATH):
-        with open(FILE_PATH, "a") as file:
-            file.write(json.dumps(new_data) + "\n")
+        with open(FILE_PATH, "r+") as file:
+            file.seek(0, 2)
+            pos = file.tell()
+            file.seek(pos-1)
+            file.write(","+json.dumps(new_data) + "\n")
             user = json.loads(user)
-            print (f"[{timestamp}] - {Fore.LIGHTBLUE_EX}SYS{Fore.RESET} - {Fore.LIGHTGREEN_EX}client_auth{Fore.RESET} {user.get("user")}-{user.get("key")} - - {Fore.LIGHTGREEN_EX}route{Fore.RESET} {route}")
+            print (f"{syslog()}{Fore.LIGHTGREEN_EX}client_auth{Fore.RESET} {user.get("user")}-{user.get("key")} - - {Fore.LIGHTGREEN_EX}route{Fore.RESET} {route}")
 
     else:
         print("File does not exist.")
