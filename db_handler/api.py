@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify, send_from_directory
 import mysql.connector
 import os
+import json
 import savelog as log
 
-HOST='192.168.103.54'
+HOST='0.0.0.0'
 PORT=9898
 
 app = Flask(__name__)
@@ -28,7 +29,7 @@ def serve_homepage():
     if not any(obj.get("key") == key for obj in ALLOWED_USERS):
         return ""
     user = [obj for obj in ALLOWED_USERS if obj.get("key") == key]
-    log.savelog(user[0],"homepage")
+    log.savelog(json.dumps(user[0]),"homepage")
     return send_from_directory("static", "Homepage.html")
 
 # Get all data
