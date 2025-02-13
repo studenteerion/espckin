@@ -25,8 +25,8 @@ def savelog(user,route):
         with open(FILE_PATH, "r+") as file:
             file.seek(0, 2)
             pos = file.tell()
-            file.seek(pos-5)
-            file.write(json.dumps(new_data, indent=2, ensure_ascii=False).replace('\n',"\n  "))
+            file.seek(pos-4)
+            file.write(","+json.dumps(new_data, indent=2, ensure_ascii=False).replace('\n',"\n  ")+"\n]\n")
             user = json.loads(user)
             print (f"{syslog()}{Fore.LIGHTGREEN_EX}client_auth{Fore.RESET} {user.get("user")}-{user.get("key")} - - {Fore.LIGHTGREEN_EX}route{Fore.RESET} {route}")
 
