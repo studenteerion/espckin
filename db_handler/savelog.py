@@ -19,7 +19,6 @@ def syslog():
 
 def savelog(user,route):
     timestamp = datetime.now().strftime('%Y/%m/%d - %H:%M:%S')
-    user_str = "{"+f' "user": "{json.loads(user).get("user")}", "key": "{json.loads(user).get("key")}" '+"}"
     new_data = json.loads("{"+f'"timestamp": "{timestamp}", "client_auth": {user}, "request_route": "{route}"'+"}")
 
     if os.path.exists(FILE_PATH):
@@ -27,7 +26,7 @@ def savelog(user,route):
             file.seek(0, 2)
             pos = file.tell()
             file.seek(pos-5)
-            file.write(json.dumps(new_data, indent=2, ensure_ascii=False))
+            file.write(json.dumps(new_data, indent=2, ensure_ascii=False).replace('\n',"\n  "))
             user = json.loads(user)
             print (f"{syslog()}{Fore.LIGHTGREEN_EX}client_auth{Fore.RESET} {user.get("user")}-{user.get("key")} - - {Fore.LIGHTGREEN_EX}route{Fore.RESET} {route}")
 
