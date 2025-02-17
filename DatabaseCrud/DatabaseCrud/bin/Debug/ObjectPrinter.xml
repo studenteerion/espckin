@@ -1,0 +1,667 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ObjectPrinter</name>
+    </assembly>
+    <members>
+        <member name="T:ObjectPrinter.Config">
+            <summary>
+            The entry point for ObjectPrinter configuration
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.Config.Inspectors">
+            <summary>
+            Configs defining inspectors
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.Config.Inspectors.CatchAllTypeInspector">
+            <summary>
+             The catch-all inspector to use if no inspector is found to inspect a given type.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.Config.Inspectors.Registration">
+            <summary>
+            The registration that will be used to default ObjectPrinterConfig.Inspectors
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.Config.Inspectors.IncludeCountsForCollections">
+            <summary>
+            The default setting for including counts for collections
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.Config.Printer">
+            <summary>
+            Defaults for ObjectPrinterConfig
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.Printer.Tab">
+            <summary>The default tab character</summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.Printer.NewLine">
+            <summary>The default newline character</summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.Printer.MaxDepth">
+            <summary>
+             The default depth to recurse into the object graph.  Default is 10.
+             This guards against self-referencing value types, like those found in Linq2Sql data definitions.
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.Printer.IncludeLogging">
+            <summary>
+             The default setting for including ObjectPrinter logging in the output
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.Printer.EnableExceptionCaching">
+            <summary>
+            The default setting for caching Exception output
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.Config.InspectAllTypeInspector">
+            <summary>
+            Configs for the InspectAllTypeInspector, the default CatchAllTypeInspector 
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.InspectAllTypeInspector.GetMemberCacheDelegate">
+            <summary>
+            Used to override default caching mechanism when InspectAllTypeInspector.Default.EnableCaching is true.
+            Any instance created will be reused per BindingFlags for the life of the AppDomain
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.Config.InspectAllTypeInspector.Default">
+            <summary>
+            Defaults
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.InspectAllTypeInspector.Default.MemberBindingFlags">
+            <summary>BindingFlags used to reflect members</summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.InspectAllTypeInspector.Default.EnableCaching">
+            <summary>Enable caching of reflected values for each reflected type</summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.InspectAllTypeInspector.Default.IncludeMethods">
+            <summary>Return methods in addition to properties and fields</summary>
+        </member>
+        <member name="F:ObjectPrinter.Config.InspectAllTypeInspector.Default.IncludeToStringWhenOverridden">
+            <summary>When ToString() is overridden, returns the value</summary>
+        </member>
+        <member name="P:ObjectPrinter.Config.InspectAllTypeInspector.Default.ShouldObscureValue">
+            <summary>When true, the value of the ObjectInfo is replaced with ObscureValueText</summary>
+        </member>
+        <member name="P:ObjectPrinter.Config.InspectAllTypeInspector.Default.ObscureValueText">
+            <summary>The text to display when a value has been obscured.  default: {obscured}</summary>
+        </member>
+        <member name="T:ObjectPrinter.IObjectPrinterConfig">
+            <summary>
+            Defines the config used during an ObjectPrinter.Dump
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.IObjectPrinterConfig.GetInspector(System.Object,System.Type)">
+            <summary>
+            Returns an ITypeInspector for the given object
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.IObjectPrinterConfig.Tab">
+            <summary>
+             The string to use as a tab.  
+             Use html characters if outputting to html without the 'pre' element.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.IObjectPrinterConfig.NewLine">
+            <summary>
+             The string to use as a newline.  
+             Use html characters if outputting to html without the 'pre' element.
+             If not specified, DefaultNewLine (\n) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.IObjectPrinterConfig.MaxDepth">
+            <summary>
+             The maximum depth of recursions into the object graph.
+             This is useful for escaping an issue with value types 
+             where we can't reliably determine same instance.
+             If not specified, DefaultMaxDepth (10) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.IObjectPrinterConfig.IncludeLogging">
+            <summary>
+             When true, the inspector used for an object is specified in the output.
+             If not specified, DefaultIncludeLogging (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.IObjectPrinterConfig.EnableExceptionCaching">
+            <summary>
+            When true an exception is being dumped to string, 
+            the output will be cached in the Data property of the exception.
+            For short lived exceptions with a lot of context, this can save considerable time.
+            For long lived exceptions, it may be preferable to not take up the memory.
+            For exceptions with little context, it may be cheap enough to dump again.
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.ExceptionExtensions">
+            <summary>
+            Extensions for exceptions
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.ExceptionExtensions.SetContext(System.Exception,System.String,System.Object,System.Boolean)">
+            <summary>
+            Adds context in the form of objects to the Data property of an exception.
+            This context will be printed with the exception.
+            </summary>
+            <param name="e">The exception to add context to</param>
+            <param name="name">The name to describe the context</param>
+            <param name="context">The context item.</param>
+            <param name="ifNotSerializablePrintOnSerialize">
+            When true, if the object is not serializable, the object will be dumped 
+            to string and added to the exception before serialization.  default=true
+            </param>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectorsRegistration">
+            <summary>
+            Use this class to customize type inspector registration.
+            Order inspectors will be applied:
+            - Enum
+            - Exception
+            - Enumerables
+            - Custom
+            - CatchAll
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectorsRegistration.OverrideEnumInspector(ObjectPrinter.TypeInspectors.ITypeInspector)">
+            <summary>
+            Overrides the default EnumTypeInspector.
+            </summary>
+            <returns>this</returns>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectorsRegistration.OverrideExceptionInspector(ObjectPrinter.TypeInspectors.ITypeInspector)">
+            <summary>
+            Overrides the default ExceptionTypeInspector.
+            </summary>
+            <returns>this</returns>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectorsRegistration.OverrideEnumerableInspectors(ObjectPrinter.TypeInspectors.ITypeInspector[])">
+            <summary>DefaultEnumerableInspectors is used if not overridden</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectorsRegistration.InspectAllMsTypes">
+            <summary>
+             If not specified, ToString() is called on all types in 'System' and 'Microsoft' 
+             namespaces not already covered by a type inspector.  Calling this will cause
+             those types to be inspected by the CatchAll inspector
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectorsRegistration.RegisterInspectors(ObjectPrinter.TypeInspectors.ITypeInspector[])">
+            <summary>Inspectors to be used run before the CatchAll inspector</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectorsRegistration.RegisterInspector(ObjectPrinter.TypeInspectors.ITypeInspector)">
+            <summary>Inspectors to be used run before the CatchAll inspector</summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.DictionaryTypeInspector">
+            <summary>
+            inspects each entry as kev/value pair, 
+            where the key is ToString'd as the property name
+            and the value is inspected as any other value would be.
+            we welcome pull requests that will be more expressive when the 
+            key is not cleanly converted to a string.
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.ITypeInspector">
+            <summary>
+            Type inspectors determine how a type should be inspected.
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.ITypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary>If ShouldInspect returns true, this type inspector will be used to inspect the type</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.ITypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary>Returns the members to be printed</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.DictionaryTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.DictionaryTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.DictionaryTypeInspector.IncludeCountsForCollections">
+            <summary>
+            when true, Count will be the first property printed
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.EnumerableTypeInspector">
+            <summary>
+            Inspects every item in the enumerable
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.EnumerableTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.EnumerableTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.EnumerableTypeInspector.IncludeCountsForCollections">
+            <summary>
+            when true, Count will be the first property printed
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.NameValueCollectionTypeInspector">
+            <summary>
+            inspects each entry in the NameValueCollection, the key as a property name and the value as a value
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.NameValueCollectionTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.NameValueCollectionTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.NameValueCollectionTypeInspector.IncludeCountsForCollections">
+            <summary>
+            when true, Count will be the first property printed
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.XmlNodeTypeInspector">
+            <summary>
+            returns the InnerXml of the node as a string
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.XmlNodeTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.XmlNodeTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="T:ObjectPrinter.Utilties.LazyString">
+            <summary>
+            A way to defer execution of the object printer until the last possible minute.
+            Useful for logging to prevent littering code with IsLevelEnabled calls.
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.LazyString.#ctor(System.Func{System.String})">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.LazyString.ToString">
+            <summary></summary>
+        </member>
+        <member name="T:ObjectPrinter.Utilties.NonSerializableWrapper">
+            <summary>
+            A NonSerializableWrapper is a wrapper to contain non-serializable objects within Exception.Data
+            which requires all items to be serializable.  
+            If the item is serialized and PrintOnSerialize is true, the object is converted
+            to a string using the ObjectPrinter otherwise the item is lost
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Utilties.NonSerializableWrapper.Context">
+            <summary>
+            The wrapped item
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Utilties.NonSerializableWrapper.PrintOnSerialize">
+            <summary>
+            determines whether Context is dumped or dropped
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.ObjectExtensions">
+            <summary>
+            Extensions for dumping an Object to a TextWriter or String
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectExtensions.DumpTo(System.Object,System.IO.TextWriter,ObjectPrinter.IObjectPrinterConfig)">
+            <summary>Uses the ObjectPrinter to loop through the properties of the object, dumping them to the provided TextWriter.</summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectExtensions.DumpToString(System.Object,ObjectPrinter.IObjectPrinterConfig)">
+            <summary>Uses the ObjectPrinter to loop through the properties of the object, dumping them to a string.</summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectExtensions.Dump(System.Object,ObjectPrinter.IObjectPrinterConfig)">
+            <summary>
+             Creates a delegate that will use the ObjectPrinter ont the obj when ToString() is called on the delegate.
+             Useful for delaying execution of the ObjectPrinter until absolutely needed. i.e. logging
+             </summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectExtensions.LazyDump(System.Object,ObjectPrinter.IObjectPrinterConfig)">
+            <summary>
+             Same as Dump, but less likely to conflict with Dump extension methods from other assemblies.
+             </summary>
+        </member>
+        <member name="T:ObjectPrinter.Utilties.BigAlMemberCache">
+            <summary>Big Al (Alzheimers) doesn't remember a thing.  No caching happens here.</summary>
+        </member>
+        <member name="T:ObjectPrinter.Utilties.IMemberCache">
+            <summary>
+            Caches the member information used to inspect a type
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IMemberCache.GetProperties(System.Type)">
+            <summary>
+            Returns the properties to inspect
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IMemberCache.GetFields(System.Type)">
+            <summary>
+            Returns the fields to inspect
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IMemberCache.GetMethods(System.Type)">
+            <summary>
+            Returns the methods to inspect
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.BigAlMemberCache.#ctor(System.Reflection.BindingFlags)">
+            <summary>
+            Creates a new instance of BigAlMemberCache
+            </summary>
+            <param name="bindingFlags"></param>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.BigAlMemberCache.GetProperties(System.Type)">
+            <summary>
+            Returns the properties to inspect, never caching the results
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.BigAlMemberCache.GetFields(System.Type)">
+            <summary>
+            Returns the fields to inspect, never caching the results
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.BigAlMemberCache.GetMethods(System.Type)">
+            <summary>
+            Returns the methods to inspect, never caching the results
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.Funcs">
+            <summary>
+            Boiler plate functions that can be used to customize TypeInspectors
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.Funcs.IncludeNamespaces(System.String[])">
+            <summary>includes any namespace starting with one of the namespaces provided</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.Funcs.ExcludeNamespaces(System.String[])">
+            <summary>Excludes any namespace starting with one of the namespaces provided</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.Funcs.IncludeTypes(System.Boolean,System.Type[])">
+            <summary>
+            Check if the provided object is an instance of any of the provided types
+            </summary>
+            <param name="inherit">when true, returns true if the given object inherits from any of the provided types</param>
+            <param name="types">the types to check against</param>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.Funcs.ExcludeTypes(System.Boolean,System.Type[])">
+            <summary>
+            Check if the provided object is not an instance of any of the provided types
+            </summary>
+            <param name="inherit">when true, returns false if the given object inherits from any of the provided types</param>
+            <param name="types">the types to check against</param>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.Funcs.IsException">
+            <summary>typeof (Exception).IsAssignableFrom(type)</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.Funcs.IncludeMsBuiltInNamespaces">
+            <summary>IncludeNamespaces("System", "Microsoft")</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.Funcs.ExcludeMsBuiltInNamespaces">
+            <summary>ExcludeNamespaces("System", "Microsoft")</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.Funcs.ExcludeNullMembers">
+            <summary>
+            Returns false when the ObjectInfo.Value is null
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.Funcs.MemberContainsPassword">
+            <summary>
+            returns true if MemberInfo.name is contains any of the following strings, 
+            ignoring case: password, pwd, salt, connectionstring, connstring
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.ObjectInfo">
+            <summary>
+            The info used by the ObjectPrinter to inspect and print items
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectInfo.#ctor(System.Object)">
+            <summary>
+            Create an instance of an ObjectInfo without a name.
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectInfo.#ctor(System.String,System.Object)">
+            <summary>
+            Create an instance of an ObjectInfo with a name.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectInfo.Name">
+            <summary>
+            The name of the value to be printed.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectInfo.Inspector">
+            <summary>
+            The inspector to use to inspect the object.  This overrides any configured inspectors.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectInfo.Value">
+            <summary>
+            The value to be printed
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectInfo.Type">
+            <summary>
+            The Type of the value to be printed
+            </summary>
+        </member>
+        <member name="F:ObjectPrinter.Printers.ObjectPrinter.GetDefaultContext">
+            <summary>The default config to use.</summary>
+        </member>
+        <member name="T:ObjectPrinter.ObjectPrinterConfig">
+            <summary>
+            Configs that can be overridden for a specific Dump by the ObjectPrinter
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectPrinterConfig.#ctor">
+            <summary>
+            instatiates new instace of ObjectPrinterConfig using defaults from Config.Printer
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.ObjectPrinterConfig.GetInspector(System.Object,System.Type)">
+            <summary>
+            Returns the first ITypeInspector from Inspectors where ShouldInspect returns true.
+            If none return true, the CatchAllTypeInspector is used
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectPrinterConfig.Tab">
+            <summary>
+             The string to use as a tab.  
+             Use html characters if outputting to html without the 'pre' element.
+             If not specified, Config.Printer.Tab (\t) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectPrinterConfig.NewLine">
+            <summary>
+             The string to use as a newline.  
+             Use html characters if outputting to html without the 'pre' element.
+             If not specified, Config.Printer.NewLine (\n) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectPrinterConfig.MaxDepth">
+            <summary>
+             The maximum depth of recursions into the object graph.
+             This is useful for escaping an issue with value types 
+             where we can't reliably determine same instance.
+             If not specified, Config.Printer.MaxDepth (10) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectPrinterConfig.IncludeLogging">
+            <summary>
+             When true, the inspector used for an object is specified in the output.
+             If not specified, Config.Printer.IncludeLogging (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectPrinterConfig.EnableExceptionCaching">
+            <summary>
+            When true an exception is being dumped to string, 
+            the output will be cached in the Data property of the exception.
+            For short lived exceptions with a lot of context, this can save considerable time.
+            For long lived exceptions, it may be preferable to not take up the memory.
+            For exceptions with little context, it may be cheap enough to dump again.
+            If not specified, Config.Printer.EnableExceptionCaching (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.ObjectPrinterConfig.Inspectors">
+            <summary>
+            The type inspectors to be used during the printing of an object.
+            If not specified, will use the GetInspectors static factory delegate.
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.InspectAllTypeInspector">
+            <summary>
+            Inspects all Fields and Properties, and any method definitions when IncludeMethods is true.
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.#ctor">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary>If ShouldInspect returns true, this type inspector will be used to inspect the type</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldEvaluate(System.Object,System.Reflection.MemberInfo)">
+            <summary>If ShouldEvaluate returns true, the value will be evaluated for the member</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldInclude(System.Object,ObjectPrinter.ObjectInfo)">
+            <summary>If ShouldInclude returns true (after member is evaluated), the member will be printed out</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ParseMethodInfo(System.Object,System.Reflection.MethodInfo)">
+            <summary>returns methodInfo.ToString()</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ParseFieldInfo(System.Object,System.Reflection.FieldInfo)">
+            <summary>returns fieldInfo.GetValue(objectToInspect)</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ParsePropertyInfo(System.Object,System.Reflection.PropertyInfo)">
+            <summary>returns property.GetValue(instance, null)</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldInspectType">
+            <summary>If ShouldInspectType returns true, this inspector will handle the type.</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldEvaluateMember">
+            <summary>If ShouldEvaluateMember returns true, the value will be evaluated for the member. (EvaluateMember runs before IncludeMember)</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldIncludeMember">
+            <summary>If ShouldIncludeMember returns true (after member is evaluated), the member will be printed out. (EvaluateMember runs before IncludeMember)</summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.MemberBindingFlags">
+            <summary>
+            BindingFlags used to reflect members
+            If not specified, Config.InspectAllTypeInspector.MemberBindingFlags (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.EnableCaching">
+            <summary>
+            Enable caching of reflected values for each reflected type
+            If not specified, Config.InspectAllTypeInspector.EnableCaching (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.IncludeMethods">
+            <summary>
+            Return methods in addition to properties and fields
+            If not specified, Config.InspectAllTypeInspector.IncludeMethods (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.IncludeToStringWhenOverridden">
+            <summary>
+            When ToString() is overridden, returns the value
+            If not specified, Config.InspectAllTypeInspector.IncludeToStringWhenOverridden (false) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ShouldObscureValue">
+            <summary>
+            When true, the value of the ObjectInfo is replaced with ObscureValueText
+            If not specified, Config.InspectAllTypeInspector.ShouldObscureValue (null) is used.
+            </summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.InspectAllTypeInspector.ObscureValueText">
+            <summary>
+            The text to display when a value has been obscured.  
+            If not specified, Config.InspectAllTypeInspector.ObscureValueText ({obscured}) is used.
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.EnumTypeInspector">
+            <summary>Returns the full name of an enum</summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.EnumTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.EnumTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.ExceptionTypeInspector">
+            <summary>
+            Returns properties in a well known order to make it easier to scan the data
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.ExceptionTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.ExceptionTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="T:ObjectPrinter.Utilties.MemberCache">
+            <summary>
+            Caches the member information used to inspect a type.
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.MemberCache.#ctor(System.Reflection.BindingFlags)">
+            <summary>
+            Creates a new instance of MemberCache
+            </summary>
+            <param name="bindingFlags"></param>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.MemberCache.GetProperties(System.Type)">
+            <summary>
+            Returns the properties to inspect
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.MemberCache.GetFields(System.Type)">
+            <summary>
+            Returns the fields to inspect
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.MemberCache.GetMethods(System.Type)">
+            <summary>
+            Returns the methods to inspect
+            </summary>
+        </member>
+        <member name="T:ObjectPrinter.TypeInspectors.ToStringTypeInspector">
+            <summary>
+            returns the ToString() represenation for every object.
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.ToStringTypeInspector.ShouldInspect(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.TypeInspectors.ToStringTypeInspector.GetMemberList(System.Object,System.Type)">
+            <summary></summary>
+        </member>
+        <member name="P:ObjectPrinter.TypeInspectors.ToStringTypeInspector.ShouldInspectType">
+            <summary>If ShouldInspectType returns true, this inspector will handle the type</summary>
+        </member>
+        <member name="T:ObjectPrinter.Utilties.IndentableTextWriter">
+            <summary>
+            A text writer that can remember indents across new lines
+            </summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IndentableTextWriter.#ctor(System.IO.TextWriter)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IndentableTextWriter.#ctor(System.IO.TextWriter,System.String,System.String)">
+            <summary></summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IndentableTextWriter.Indent">
+            <summary>Add an indent to be prepended to every line</summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IndentableTextWriter.Outdent">
+            <summary>Remove an indent to be prepended to every line</summary>
+        </member>
+        <member name="M:ObjectPrinter.Utilties.IndentableTextWriter.Write(System.Char)">
+            <summary>Write this value</summary>
+        </member>
+        <member name="P:ObjectPrinter.Utilties.IndentableTextWriter.Encoding">
+            <summary>The encoding to use</summary>
+        </member>
+    </members>
+</doc>
