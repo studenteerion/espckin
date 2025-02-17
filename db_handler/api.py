@@ -29,7 +29,7 @@ def serve_homepage():
     if not any(obj.get("key") == key for obj in ALLOWED_USERS):
         return ""
     user = [obj for obj in ALLOWED_USERS if obj.get("key") == key]
-    log.savelog(json.dumps(user[0]),"homepage")
+    log.savelog_access(json.dumps(user[0]),"homepage")
     return send_from_directory("static", "Homepage.html")
 
 # Get all data

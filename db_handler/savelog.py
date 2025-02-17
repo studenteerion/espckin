@@ -1,9 +1,7 @@
 import os
 from datetime import datetime
 import json
-from colorama import init, Fore
-
-init()
+import console_out_color as color
 
 FILE_PATH = "./log.json"
 
@@ -22,35 +20,34 @@ def compose_log(time,user,route):
     log_string += f'"client_auth": {user}, '
     log_string += f'"request_route": "{route}"'
     log_string += "}"
-    composed = json.loads(log_string)
-    return composed
+    composed_log = json.loads(log_string)
+    return composed_log
 
-def write_lightblue(text):
-    write = f'{Fore.LIGHTBLUE_EX}'
-    write += f'{text}'
-    write += f'{Fore.RESET}'
-    return write
 
-def write_lightgreen(text):
-    write = f'{Fore.LIGHTGREEN_EX}'
-    write += f'{text}'
-    write += f'{Fore.RESET}'
-    return write
 
 def syslog():
     composed = f'[{TIMESTAMP}] '
     composed += '- '
-    composed += f'{write_lightblue('SYS')} '
+    composed += f'{color.lightblue('SYS')} '
+    composed += '- '
+    return composed
+
+def errlog():
+    composed = f'[{TIMESTAMP}] '
+    composed += '- '
+    composed += f'{color.lightred('SYS')} '
     composed += '- '
     return composed
 
 def compose_console_log(type,user,route):
     if type == 's':
         composed = syslog()
-    composed += f'{write_lightgreen('client_auth')} '
+    elif type == 'e':
+        composed = errlog()
+    composed += f'{color.lightgreen('client_auth')} '
     composed += f'{user.get("user")}-{user.get("key")} '
     composed += '- - '
-    composed += f'{write_lightgreen('route')} '
+    composed += f'{color.lightgreen('route')} '
     composed += f'{route}'
     return composed
 
@@ -61,14 +58,44 @@ def compose_file_log(log):
     composed += '\n]\n'
     return composed
 
-def savelog(user,route):
+def savelog_errauth(route):
     generated_log = compose_log(TIMESTAMP,user,route)
 
     if os.path.exists(FILE_PATH):
         with open(FILE_PATH, "r+") as file:
             file.seek(0, 2)
             pos = file.tell()
-            file.seek(pos-4)
+            file.seek(pos-5)
+            file.write(compose_file_log(generated_log))
+            user = json.loads(user)
+            print (f'{compose_console_log('s',user,route)}')
+
+    else:
+        print("File does not exist.")
+
+def savelog_access(route,error):
+    generated_log = compose_log(TIMESTAMP,user,route)
+
+    if os.path.exists(FILE_PATH):
+        with open(FILE_PATH, "r+") as file:
+            file.seek(0, 2)
+            pos = file.tell()
+            file.seek(pos-5)
+            file.write(compose_file_log(generated_log))
+            user = json.loads(user)
+            print (f'{compose_console_log('s',user,route)}')
+
+    else:
+        print("File does not exist.")
+
+def savelog_access(user,route):
+    generated_log = compose_log(TIMESTAMP,user,route)
+
+    if os.path.exists(FILE_PATH):
+        with open(FILE_PATH, "r+") as file:
+            file.seek(0, 2)
+            pos = file.tell()
+            file.seek(pos-5)
             file.write(compose_file_log(generated_log))
             user = json.loads(user)
             print (f'{compose_console_log('s',user,route)}')
