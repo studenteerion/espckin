@@ -35,7 +35,7 @@ def syslog():
 def errlog():
     composed = f'[{TIMESTAMP}] '
     composed += '- '
-    composed += f'{color.lightred('SYS')} '
+    composed += f'{color.lightred('ERR')} '
     composed += '- '
     return composed
 
@@ -59,34 +59,13 @@ def compose_file_log(log):
     return composed
 
 def savelog_errauth(route):
-    generated_log = compose_log(TIMESTAMP,user,route)
-
-    if os.path.exists(FILE_PATH):
-        with open(FILE_PATH, "r+") as file:
-            file.seek(0, 2)
-            pos = file.tell()
-            file.seek(pos-5)
-            file.write(compose_file_log(generated_log))
-            user = json.loads(user)
-            print (f'{compose_console_log('s',user,route)}')
-
-    else:
-        print("File does not exist.")
-
-def savelog_access(route,error):
-    generated_log = compose_log(TIMESTAMP,user,route)
-
-    if os.path.exists(FILE_PATH):
-        with open(FILE_PATH, "r+") as file:
-            file.seek(0, 2)
-            pos = file.tell()
-            file.seek(pos-5)
-            file.write(compose_file_log(generated_log))
-            user = json.loads(user)
-            print (f'{compose_console_log('s',user,route)}')
-
-    else:
-        print("File does not exist.")
+    composed = errlog()
+    composed += f'{color.lightgreen('client_auth')} '
+    composed += f'{color.lightred('NO USER KEY AUTH ERR')} '
+    composed += '- - '
+    composed += f'{color.lightgreen('route')} '
+    composed += f'{route}'
+    print (composed)
 
 def savelog_access(user,route):
     generated_log = compose_log(TIMESTAMP,user,route)

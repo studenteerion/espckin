@@ -22,21 +22,27 @@ conn = mysql.connector.connect(
 
 cursor = conn.cursor(dictionary=True)
 
+def auth(route, key):
+    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+        log.savelog_errauth(route)
+        return False
+    user = [obj for obj in ALLOWED_USERS if obj.get("key") == key]
+    log.savelog_access(json.dumps(user[0]),route)
+    return True
+
 # Serve static files
 @app.route('/')
 def serve_homepage():
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("homepage", key):
         return ""
-    user = [obj for obj in ALLOWED_USERS if obj.get("key") == key]
-    log.savelog_access(json.dumps(user[0]),"homepage")
     return send_from_directory("static", "Homepage.html")
 
 # Get all data
 @app.route('/all', methods=['GET'])
 def get_all():
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("all", key):
         return ""
     query = '''SELECT professore.id_professore, professore.nome, professore.cognome, professore.mail,
                       macchine.targa, accesso.zona_accesso 
@@ -52,7 +58,7 @@ def get_all():
 @app.route('/plate/<string:plate>', methods=['GET'])
 def get_teachers(plate):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("plate", key):
         return ""
     query = '''SELECT professore.id_professore, professore.nome, professore.cognome, professore.mail,
                       macchine.targa, accesso.zona_accesso 
@@ -69,7 +75,7 @@ def get_teachers(plate):
 @app.route('/teachers/<string:teacher>', methods=['GET'])
 def get_plates(teacher):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("teachers", key):
         return ""
     query = '''SELECT professore.id_professore, professore.nome, professore.cognome, professore.mail,
                       macchine.targa, accesso.zona_accesso 
@@ -86,7 +92,7 @@ def get_plates(teacher):
 @app.route('/entry/<string:entry>', methods=['GET'])
 def get_entry(entry):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("entry", key):
         return ""
     query = '''SELECT professore.id_professore, professore.nome, professore.cognome, professore.mail,
                       accesso.zona_accesso 
@@ -101,7 +107,7 @@ def get_entry(entry):
 @app.route('/create/<string:table>', methods=['POST'])
 def create_record(table):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("create", key):
         return ""
     data = request.json
     columns = ', '.join(data.keys())
@@ -114,7 +120,7 @@ def create_record(table):
 @app.route('/read/<string:table>', methods=['GET'])
 def read_records(table):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("read", key):
         return ""
     query = f"SELECT * FROM {table}"
     cursor.execute(query)
@@ -124,7 +130,7 @@ def read_records(table):
 @app.route('/update/<string:table>/<int:id>', methods=['PUT'])
 def update_record(table, id):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("update", key):
         return ""
     data = request.json
     set_clause = ', '.join([f"{key}=%s" for key in data.keys()])
@@ -136,7 +142,7 @@ def update_record(table, id):
 @app.route('/delete/<string:table>/<int:id>', methods=['DELETE'])
 def delete_record(table, id):
     key = request.args.get('key')
-    if not any(obj.get("key") == key for obj in ALLOWED_USERS):
+    if not auth("delete", key):
         return ""
     query = f"DELETE FROM {table} WHERE id=%s"
     cursor.execute(query, (id,))

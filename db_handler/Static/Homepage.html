@@ -1,49 +1,324 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>API Interaction</title>
-    <link rel="stylesheet" type="text/css" href="home.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="home.css" />
+    <style>
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Courier New", Courier, monospace;
+        background-color: #f0f0f0;
+        border: 2px solid #000;
+        margin-top: 20px;
+      }
 
-<body>
+      th {
+        background-color: #4caf50;
+        color: white;
+        font-size: 16px;
+        text-align: center;
+        padding: 10px;
+        border: 2px solid #000;
+      }
+
+      td {
+        background-color: #ffffff;
+        text-align: left;
+        padding: 10px;
+        font-size: 14px;
+        border: 2px solid #000;
+      }
+
+      tr:hover {
+        background-color: #ffcc00;
+      }
+
+      #result {
+        width: 80%;
+        margin: 0 auto;
+        border: 3px dashed #000;
+        padding: 20px;
+        background-color: #ffffff;
+        box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      input,
+      textarea,
+      button {
+        font-family: "Courier New", Courier, monospace;
+        border: 2px solid #000;
+        padding: 10px;
+        margin-top: 10px;
+      }
+
+      input[type="text"],
+      textarea {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+
+      button {
+        background-color: #4caf50;
+        color: white;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        margin: 20px;
+      }
+
+      .btn {
+        padding: 10px;
+        margin: 5px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+
+  <body>
     <div class="container">
-        <h1>API Interaction</h1>
+      <h1>API Interaction</h1>
 
-        <button class="btn" onclick="loadAll()">Get All Data</button>
-        <button class="btn" onclick="getByPlate()">Get Teacher by Plate</button>
-        <button class="btn" onclick="getByTeacher()">Get Plate by Teacher</button>
-        <button class="btn" onclick="getByEntry()">Get Teachers by Entry</button>
-        <p style="color: #ffffff">spaziatura</p>
-        <div id="result"></div>
+      <button class="btn" onclick="loadAll()">Get All Data</button>
+      <button class="btn" onclick="getByPlate()">Get Teacher by Plate</button>
+      <button class="btn" onclick="getByTeacher()">Get Plate by Teacher</button>
+      <button class="btn" onclick="getByEntry()">Get Teachers by Entry</button>
+      <p style="color: #ffffff">spaziatura</p>
+      <div id="result"></div>
 
-        <h2>Create a Record</h2>
-        <form id="create-form">
-            <input type="text" id="create-table" placeholder="Table Name" required>
-            <textarea id="create-data" placeholder="JSON Data" required></textarea>
-            <button type="submit" class="btn">Create Record</button>
-        </form>
+      <h2>Create a Record</h2>
+      <form id="create-form">
+        <input
+          type="text"
+          id="create-table"
+          placeholder="Table Name"
+          required
+        />
+        <textarea id="create-data" placeholder="JSON Data" required></textarea>
+        <button type="submit" class="btn">Create Record</button>
+      </form>
 
-        <h2>Update a Record</h2>
-        <form id="update-form">
-            <input type="text" id="update-table" placeholder="Table Name" required>
-            <input type="text" id="update-id" placeholder="Record ID" required>
-            <textarea id="update-data" placeholder="JSON Data" required></textarea>
-            <button type="submit" class="btn">Update Record</button>
-        </form>
+      <h2>Update a Record</h2>
+      <form id="update-form">
+        <input
+          type="text"
+          id="update-table"
+          placeholder="Table Name"
+          required
+        />
+        <input type="text" id="update-id" placeholder="Record ID" required />
+        <textarea id="update-data" placeholder="JSON Data" required></textarea>
+        <button type="submit" class="btn">Update Record</button>
+      </form>
 
-        <h2>Delete a Record</h2>
-        <form id="delete-form">
-            <input type="text" id="delete-table" placeholder="Table Name" required>
-            <input type="text" id="delete-id" placeholder="Record ID" required>
-            <button type="submit" class="btn">Delete Record</button>
-        </form>
+      <h2>Delete a Record</h2>
+      <form id="delete-form">
+        <input
+          type="text"
+          id="delete-table"
+          placeholder="Table Name"
+          required
+        />
+        <input type="text" id="delete-id" placeholder="Record ID" required />
+        <button type="submit" class="btn">Delete Record</button>
+      </form>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="home.js"></script>
-</body>
+    <script>
+      // API base URL
+      const apiUrl = "http://192.168.103.14:9898";
+      const key = "?key=BJFLMJTARU"
 
+      // Function to load all data
+      function loadAll() {
+        fetch(`${apiUrl}/all${key}`)
+          .then((response) => response.json())
+          .then((data) => {
+            displayResult(data);
+          })
+          .catch((error) => {
+            console.error(error);
+            alert("Error fetching data.");
+          });
+      }
+
+      // Function to get teacher data based on plate
+      function getByPlate() {
+        const plate = prompt("Enter Plate Number:");
+        if (plate) {
+          fetch(`${apiUrl}/plate/${plate}${key}`)
+            .then((response) => response.json())
+            .then((data) => {
+              displayResult(data);
+            })
+            .catch((error) => {
+              console.error(error);
+              alert("Error fetching data.");
+            });
+        }
+      }
+
+      // Function to get plate data based on teacher
+      function getByTeacher() {
+        const teacher = prompt("Enter Teacher ID:");
+        if (teacher) {
+          fetch(`${apiUrl}/teachers/${teacher}${key}`)
+            .then((response) => response.json())
+            .then((data) => {
+              displayResult(data);
+            })
+            .catch((error) => {
+              console.error(error);
+              alert("Error fetching data.");
+            });
+        }
+      }
+
+      // Function to get teachers by entry
+      function getByEntry() {
+        const entry = prompt("Enter Entry Zone:");
+        if (entry) {
+          fetch(`${apiUrl}/entry/${entry}${key}`)
+            .then((response) => response.json())
+            .then((data) => {
+              displayResult(data);
+            })
+            .catch((error) => {
+              console.error(error);
+              alert("Error fetching data.");
+            });
+        }
+      }
+
+      // Function to display the result as a table
+      function displayResult(data) {
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = ""; // Clear previous results
+
+        if (Array.isArray(data) && data.length > 0) {
+          const table = document.createElement("table");
+          table.style.border = "1px solid black";
+
+          // Create table header
+          const headerRow = document.createElement("tr");
+          const headers = Object.keys(data[0]);
+          headers.forEach((header) => {
+            const th = document.createElement("th");
+            th.textContent = header;
+            th.style.border = "1px solid black";
+            headerRow.appendChild(th);
+          });
+          table.appendChild(headerRow);
+
+          // Create rows for each item in the data array
+          data.forEach((item) => {
+            const row = document.createElement("tr");
+            headers.forEach((header) => {
+              const td = document.createElement("td");
+              td.textContent = item[header] || "";
+              td.style.border = "1px solid black";
+              row.appendChild(td);
+            });
+            table.appendChild(row);
+          });
+
+          resultDiv.appendChild(table);
+        } else {
+          resultDiv.innerHTML = "<p>No data available.</p>";
+        }
+      }
+
+      // Create record
+      document
+        .getElementById("create-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const table = document.getElementById("create-table").value;
+          const data = JSON.parse(document.getElementById("create-data").value);
+
+          fetch(`${apiUrl}/create/${table}`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              alert("Record created successfully");
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error(error);
+              alert("Error creating record.");
+            });
+        });
+
+      // Update record
+      document
+        .getElementById("update-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const table = document.getElementById("update-table").value;
+          const id = document.getElementById("update-id").value;
+          const data = JSON.parse(document.getElementById("update-data").value);
+
+          fetch(`${apiUrl}/update/${table}/${id}${key}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              alert("Record updated successfully");
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error(error);
+              alert("Error updating record.");
+            });
+        });
+
+      // Delete record
+      document
+        .getElementById("delete-form")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const table = document.getElementById("delete-table").value;
+          const id = document.getElementById("delete-id").value;
+
+          fetch(`${apiUrl}/delete/${table}/${id}${key}`, {
+            method: "DELETE",
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              alert("Record deleted successfully");
+              console.log(data);
+            })
+            .catch((error) => {
+              console.error(error);
+              alert("Error deleting record.");
+            });
+        });
+    </script>
+  </body>
 </html>
