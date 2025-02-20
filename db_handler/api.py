@@ -66,7 +66,7 @@ def get_teachers(plate):
                JOIN professore ON macchina_professore.id_professore = professore.id_professore 
                JOIN macchine ON macchina_professore.id_macchina = macchine.targa 
                JOIN accesso ON professore.id_zona = accesso.id_accesso
-               WHERE macchine.targa=%s'''
+               WHERE macchine.targa=?'''
     cursor.execute(query, (plate,))
     results = cursor.fetchall()
     return jsonify(results)
