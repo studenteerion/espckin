@@ -1,0 +1,76 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f0f0f0;
+    border: 2px solid #000;
+    margin-top: 20px;
+}
+
+th {
+    background-color: #4caf50;
+    color: white;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+    border: 2px solid #000;
+}
+
+td {
+    background-color: #ffffff;
+    text-align: left;
+    padding: 10px;
+    font-size: 14px;
+    border: 2px solid #000;
+}
+
+tr:hover {
+    background-color: #ffcc00;
+}
+
+#result {
+    width: 80%;
+    margin: 0 auto;
+    border: 3px dashed #000;
+    padding: 20px;
+    background-color: #ffffff;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+input, textarea, button {
+    font-family: 'Courier New', Courier, monospace;
+    border: 2px solid #000;
+    padding: 10px;
+    margin-top: 10px;
+}
+
+input[type="text"], textarea {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+button {
+    background-color: #4caf50;
+    color: white;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    margin: 20px;
+}
+
+.btn {
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
