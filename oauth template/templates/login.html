@@ -1,0 +1,17 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login with Google</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Login with Google</h1>
+        <p>To access the application, please log in using your Google account.</p>
+        <a class="button" href="{{ url_for('login') }}">Login with Google</a>
+    </div>
+</body>
+</html>
