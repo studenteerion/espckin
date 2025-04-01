@@ -1,7 +1,6 @@
 from flask import Blueprint, request, jsonify
 from database import CameraDatabase
 from models import Camera
-from main import stopCameraThread, startCameraThread, updateCameraList, loadModels
 
 app_routes = Blueprint('app_routes', __name__)
 

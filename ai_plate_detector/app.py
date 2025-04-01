@@ -161,7 +161,7 @@ async def detect(frame, camera, model):  # ASYNC
     results = model(frame)
 
     if not results:
-        print(f"No results for camera {camera["id"]}")
+        print(f"No results for camera {camera['id']}")
         return
 
     # Get bounding boxes and class labels from the detection results
