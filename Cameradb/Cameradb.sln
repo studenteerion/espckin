@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cameradb", "Cameradb\Cameradb.csproj", "{553DF7AA-309A-43EE-B2B0-78DA57B60B2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{553DF7AA-309A-43EE-B2B0-78DA57B60B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{553DF7AA-309A-43EE-B2B0-78DA57B60B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{553DF7AA-309A-43EE-B2B0-78DA57B60B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{553DF7AA-309A-43EE-B2B0-78DA57B60B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CF5CA8B7-B4B1-4820-BE3B-C64864E37F65}
+	EndGlobalSection
+EndGlobal

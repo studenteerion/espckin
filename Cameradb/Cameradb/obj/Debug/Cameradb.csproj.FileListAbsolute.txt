@@ -1,0 +1,13 @@
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\bin\Debug\Cameradb.exe.config
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\bin\Debug\Cameradb.exe
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\bin\Debug\Cameradb.pdb
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.csproj.AssemblyReference.cache
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.Form1.resources
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.Properties.Resources.resources
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.csproj.GenerateResource.cache
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.csproj.CoreCompileInputs.cache
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.exe
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.pdb
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\bin\Debug\Newtonsoft.Json.dll
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\bin\Debug\Newtonsoft.Json.xml
+C:\Users\omara.21181\Desktop\cameradb\Cameradb\Cameradb\obj\Debug\Cameradb.csproj.Up2Date
