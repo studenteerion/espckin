@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
 from database import CameraDatabase
-from models import Camera
+from classes import Camera
 
 app_routes = Blueprint('app_routes', __name__)
 

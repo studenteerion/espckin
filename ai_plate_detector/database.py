@@ -1,5 +1,6 @@
 import sqlite3
-from models import Camera
+from classes import Camera
+import thread_handler
 
 class CameraDatabase:
     def __init__(self, db_name='camera_database.db', check_same_thread=False):
@@ -40,6 +41,9 @@ class CameraDatabase:
         self.conn.commit()
         camera.id = self.cursor.lastrowid  # Set the ID of the camera object after insertion
         
+        thread = thread_handler.createThread(camera)
+        thread_handler.startThread(thread)
+        
     def get_camera_by_id(self, camera_id):
         self.cursor.execute('''SELECT * FROM cameras WHERE ID = ?''', (camera_id,))
         camera = self.cursor.fetchone()
@@ -71,11 +75,17 @@ class CameraDatabase:
                                WHERE id = ?''', 
                            (camera.ip, camera.name, camera.description, camera.coordinates, camera_id))
         self.conn.commit()
+        
+        thread_handler.stopThread(camera_id)
+        thread = thread_handler.createThread(camera)
+        thread_handler.startThread(thread)
 
     def delete_camera(self, camera_id):
         # Delete a camera record from the database based on camera ID
         self.cursor.execute('''DELETE FROM cameras WHERE id = ?''', (camera_id,))
         self.conn.commit()
+        
+        thread_handler.stopThread(camera_id)
 
     def connect(self):
         self.conn = sqlite3.connect(self.db_name)
