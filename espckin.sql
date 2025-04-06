@@ -55,9 +55,9 @@ CREATE TABLE `macchina_professore` (
 --
 
 INSERT INTO `macchina_professore` (`id_macchina`, `id_professore`) VALUES
-('aa111aa', ''),
+('aa111aa', 'mat'),
 ('aa111aa', 'ciao'),
-('bb222bb', '');
+('bb222bb', 'mat');
 
 -- --------------------------------------------------------
 
@@ -96,7 +96,7 @@ CREATE TABLE `professore` (
 --
 
 INSERT INTO `professore` (`id_professore`, `nome`, `cognome`, `mail`, `id_zona`) VALUES
-('', 'Matilde', 'Ravasio', 'matilde.ravasio.studente@itispaleocapa.it', 1),
+('mat', 'Matilde', 'Ravasio', 'matilde.ravasio.studente@itispaleocapa.it', 1),
 ('ciao', 'Fabio', 'Colombo', 'colombo.fabio.studente@itispaleocapa.it', 0);
 
 --
