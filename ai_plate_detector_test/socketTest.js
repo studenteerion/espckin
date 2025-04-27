@@ -2,7 +2,7 @@ const io = require('socket.io-client');
 const fs = require('fs'); // Import the file system module
 
 // Connect to the Python Socket.IO server
-const socket = io('http://localhost:5000');
+const socket = io('http://localhost:5050');
 
 console.log("turned on");
 

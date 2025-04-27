@@ -1,7 +1,7 @@
 {
-  "name": "socket-trial",
+  "name": "ai_plate_detector_test",
   "version": "1.0.0",
-  "main": "test.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -10,6 +10,8 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "axios": "^1.8.4",
+    "express": "^5.1.0",
     "socket.io-client": "^4.8.1"
   }
 }

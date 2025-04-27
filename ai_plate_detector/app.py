@@ -5,6 +5,7 @@ from routes import app_routes
 from message_handler import sendMessage
 from socket_manager import setup_socketio
 import thread_handler
+
 camera_threads = {}
 
 # ASYNC
@@ -40,7 +41,11 @@ if __name__ == "__main__":
     
     consumer_thread = threading.Thread(target=sendMessage, args=(io,))
     consumer_thread.start()
-    
-    # Run the Flask app
-    app.run(host='0.0.0.0', port=5000) 
-    
+
+    try:
+        # Your long-running code here
+        app.run(debug=True, host='0.0.0.0', port=5050)
+    except KeyboardInterrupt:
+        print("Application interrupted, shutting down gracefully...")
+        thread_handler.stopThreads()
+        exit(0)

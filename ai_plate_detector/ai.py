@@ -40,9 +40,9 @@ def read(cropped_image, camera, original_frame, bbox):
             print("Detected text:", text)
             addMessage(text, camera, original_frame, bbox)
         
-    with open('detected_texts.txt', 'a') as file:
-        for text in detected_texts:
-            file.write(f"{text}\n")  # Write each detected text followed by a new line
+    #with open('detected_texts.txt', 'a') as file:
+    #    for text in detected_texts:
+    #        file.write(f"{text}\n")  # Write each detected text followed by a new line
 
     return detected_texts
 

@@ -28,7 +28,7 @@ def sendMessage(io):
         # Emit the detected plate data
         #print(f"Emitting data: {plate_data}")
         io.emit('detected_plate', plate_data)
-        print("EMITTED")
+        #print("EMITTED sendmessage")
         
         # Indicate that the item has been processed
         message_queue.task_done()
@@ -43,7 +43,7 @@ def numpy_to_base64(numpy_img, image_format='jpeg'):
 
 def addMessage(plate, camera, original_frame, bbox):
     
-    print("called")
+    #print("called addMessage")
     
     date = datetime.fromtimestamp(time.time()).strftime('%H:%M:/ %d/%m/%Y')
     
@@ -66,6 +66,6 @@ def addMessage(plate, camera, original_frame, bbox):
     
     message_queue.put(plate_data)
     
-    print("added")
+    #print("added addMessage")
     
     return
