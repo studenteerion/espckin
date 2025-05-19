@@ -5,7 +5,7 @@ const baseURL = 'http://127.0.0.1:5050/api';  // Adjust to match your Flask app'
 
 // Camera data to be added
 const newCamera = {
-    ip: 'http://localhost:3000',
+    ip: 'http://192.168.103.19:81/stream',
     name: 'Front Door Camera',
     description: 'Camera at the front door',
     coordinates: '40.7128,-74.0060' // Example coordinates (latitude, longitude)

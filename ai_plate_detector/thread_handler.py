@@ -23,6 +23,7 @@ def openFeed(camera, model, stop_signal):
             ret, frame = cap.read()
 
             if ret and frame is not None:
+                camera.update_frame(frame.copy())  # Store the latest frame
                 # Ensure asyncio event loop is running before creating task
                 loop = asyncio.new_event_loop()  # Create a new event loop for this thread
                 asyncio.set_event_loop(loop)  # Set the loop as the current event loop

@@ -49,8 +49,8 @@ def read(cropped_image, camera, original_frame, bbox):
 async def detect(frame, camera, model):  # ASYNC
     """Function to detect objects in the image and perform OCR on cropped images."""
     
-    results = model(frame)
-    #results = model(frame, verbose=False) 
+    #results = model(frame)
+    results = model(frame, verbose=False) 
 
     if not results:
         print(f"No results for camera {camera['id']}")

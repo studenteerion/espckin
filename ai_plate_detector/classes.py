@@ -1,3 +1,6 @@
+import threading
+
+
 class Camera:
     def __init__(self, ip, name, description, coordinates):
         self._id = None  # We use a private variable to store the id
@@ -5,6 +8,8 @@ class Camera:
         self.name = name
         self.description = description
         self.coordinates = coordinates
+        self.latest_frame = None  # Store the latest frame
+        self.lock = threading.Lock()
 
     @property
     def id(self):
@@ -18,6 +23,14 @@ class Camera:
             self._id = value
         else:
             raise ValueError("Cannot modify the id after it has been set.")
+
+    def update_frame(self, frame):
+        with self.lock:
+            self.latest_frame = frame
+
+    def get_frame(self):
+        with self.lock:
+            return self.latest_frame
 
     def __str__(self):
         return f"Camera {self.name} (ID: {self.id}): {self.ip}, {self.coordinates}, {self.description}"

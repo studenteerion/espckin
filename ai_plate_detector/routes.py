@@ -1,6 +1,11 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, abort, Response
+import cv2
+import time
+
 from database import CameraDatabase
 from classes import Camera
+from thread_handler import getCameraThread
+
 
 app_routes = Blueprint('app_routes', __name__)
 
@@ -106,3 +111,35 @@ def get_camera():
         return jsonify({"error": str(e)}), 400
     finally:
         camera_db.close()
+
+def generate_stream(camera_id, fps_limit=10):
+    """Generator that yields MJPEG stream from a camera thread."""
+    camera_thread = getCameraThread(camera_id)
+    
+    if not camera_thread or not camera_thread.is_thread_running():
+        yield b''  # Empty stream if camera is not running
+        return
+
+    delay = 1.0 / fps_limit
+
+    while True:
+        frame = camera_thread.camera.get_frame()
+        if frame is not None:
+            ret, jpeg = cv2.imencode('.jpg', frame)
+            if ret:
+                yield (b'--frame\r\n'
+                       b'Content-Type: image/jpeg\r\n\r\n' + jpeg.tobytes() + b'\r\n')
+        time.sleep(delay)  # Limit frame rate
+
+@app_routes.route('/camera/<int:camera_id>/stream')
+def stream_camera(camera_id):
+
+    print("called")
+
+    """Flask route to stream live camera feed."""
+    camera_thread = getCameraThread(camera_id)
+    if not camera_thread or not camera_thread.is_thread_running():
+        return abort(404, description=f"Camera {camera_id} not found or not running.")
+
+    return Response(generate_stream(camera_id),
+                    mimetype='multipart/x-mixed-replace; boundary=frame')
