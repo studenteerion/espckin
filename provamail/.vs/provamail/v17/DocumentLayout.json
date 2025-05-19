@@ -1,13 +1,21 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ravasio.22162\\source\\repos\\provamail\\",
+  "WorkspaceRootPath": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|c:\\users\\ravasio.22162\\source\\repos\\provamail\\provamail\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|c:\\users\\ravasio.22162\\documents\\github\\espckin\\provamail\\provamail\\apidata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|solutionrelative:provamail\\apidata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|c:\\users\\ravasio.22162\\documents\\github\\espckin\\provamail\\provamail\\targa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|solutionrelative:provamail\\targa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|c:\\users\\ravasio.22162\\documents\\github\\espckin\\provamail\\provamail\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|solutionrelative:provamail\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|C:\\Users\\ravasio.22162\\source\\repos\\provamail\\provamail\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{EDCD07A4-5EAC-412C-80EF-66022E44BCFD}|provamail\\provamail.csproj|solutionrelative:provamail\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     }
   ],
@@ -18,17 +26,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\ravasio.22162\\source\\repos\\provamail\\provamail\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\Form1.cs",
               "RelativeDocumentMoniker": "provamail\\Form1.cs",
-              "ToolTip": "C:\\Users\\ravasio.22162\\source\\repos\\provamail\\provamail\\Form1.cs",
+              "ToolTip": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\Form1.cs",
               "RelativeToolTip": "provamail\\Form1.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAApwGoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAANIAAAAAAAAAAAAIwO8AAAAMAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-04-30T12:55:49.913Z",
               "IsPinned": true,
@@ -36,14 +44,41 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApiData.cs",
+              "DocumentMoniker": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\ApiData.cs",
+              "RelativeDocumentMoniker": "provamail\\ApiData.cs",
+              "ToolTip": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\ApiData.cs",
+              "RelativeToolTip": "provamail\\ApiData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T12:50:02.85Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Targa.cs",
+              "DocumentMoniker": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\Targa.cs",
+              "RelativeDocumentMoniker": "provamail\\Targa.cs",
+              "ToolTip": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\Targa.cs",
+              "RelativeToolTip": "provamail\\Targa.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABcAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-19T12:47:47.851Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Form1.cs [Progettazione]",
-              "DocumentMoniker": "C:\\Users\\ravasio.22162\\source\\repos\\provamail\\provamail\\Form1.cs",
+              "DocumentMoniker": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\Form1.cs",
               "RelativeDocumentMoniker": "provamail\\Form1.cs",
-              "ToolTip": "C:\\Users\\ravasio.22162\\source\\repos\\provamail\\provamail\\Form1.cs [Progettazione]",
+              "ToolTip": "C:\\Users\\ravasio.22162\\Documents\\GitHub\\espckin\\provamail\\provamail\\Form1.cs [Progettazione]",
               "RelativeToolTip": "provamail\\Form1.cs [Progettazione]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-30T12:55:41.772Z"
+              "WhenOpened": "2025-04-30T12:55:41.772Z",
+              "EditorCaption": " [Progettazione]"
             }
           ]
         }
