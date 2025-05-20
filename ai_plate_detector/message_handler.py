@@ -9,7 +9,7 @@ message_queue = queue.Queue()
 def sendMessage(io):
     while True:
         
-        time.sleep(5)
+        #time.sleep(5)
         
         if io is None:
             print("io not yet exists")
@@ -17,13 +17,9 @@ def sendMessage(io):
         
         try:
             # Wait for the next plate data to process with a timeout
-            plate_data = message_queue.get()  # Wait for 1 second
+            plate_data = message_queue.get(timeout=1)
         except queue.Empty:
             continue  # If the queue is empty, continue the loop
-        
-        if plate_data is None:
-            print("Termination signal received. Exiting sendMessage.")
-            break  # Termination signal, break out of the loop
         
         # Emit the detected plate data
         #print(f"Emitting data: {plate_data}")

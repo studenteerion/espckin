@@ -49,7 +49,7 @@ def createThread(camera, returnValue = True):
         #print("using CPU")
     model.to(device) # Move your model to the selected device
     stop_signal = threading.Event()
-    thread = threading.Thread(target=openFeed, args=(camera, model, stop_signal))
+    thread = threading.Thread(target=openFeed, args=(camera, model, stop_signal), daemon=True)
     cameraThread = CameraThread(camera, model, thread, stop_signal)
     camera_threads.append(cameraThread)
     

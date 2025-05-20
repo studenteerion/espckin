@@ -6,6 +6,9 @@ from message_handler import sendMessage
 from socket_manager import setup_socketio
 import thread_handler
 
+import signal
+import sys
+
 camera_threads = {}
 
 # ASYNC
@@ -39,13 +42,17 @@ if __name__ == "__main__":
     
     io = setup_socketio(app)
     
-    consumer_thread = threading.Thread(target=sendMessage, args=(io,))
+    consumer_thread = threading.Thread(target=sendMessage, args=(io,), daemon=True)
     consumer_thread.start()
 
-    try:
-        # Your long-running code here
-        app.run(debug=True, host='0.0.0.0', port=5050)
-    except KeyboardInterrupt:
-        print("Application interrupted, shutting down gracefully...")
+
+    def shutdown_handler(sig, frame):
+        print("Signal received, shutting down...")
         thread_handler.stopThreads()
-        exit(0)
+        sys.exit(0)
+
+
+    signal.signal(signal.SIGINT, shutdown_handler)
+    signal.signal(signal.SIGTERM, shutdown_handler)
+
+    app.run(debug=True, host='0.0.0.0', port=5050, use_reloader=False)

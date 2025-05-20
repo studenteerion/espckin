@@ -38,11 +38,11 @@ socket.on('detected_plate', (data) => {
     }
 
     // Write the image to the file system
-    fs.writeFile(filePath, buffer, (err) => {
+    /*fs.writeFile(filePath, buffer, (err) => {
         if (err) {
             console.error('Error saving the image:', err);
         } else {
             console.log(`Image saved successfully at ${filePath}`);
         }
-    });
+    });*/
 });
