@@ -32,27 +32,28 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
+            this.targa = new System.Windows.Forms.Label();
             this.textBoxtarga = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
+            this.nomeprof = new System.Windows.Forms.Label();
             this.textBoxnome = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
-            this.label4 = new System.Windows.Forms.Label();
+            this.accesso = new System.Windows.Forms.Label();
             this.textBoxaccesso = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
+            this.id = new System.Windows.Forms.Label();
             this.textBoxid = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.textBoxmail = new System.Windows.Forms.TextBox();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.mail = new System.Windows.Forms.Label();
+            this.cognome = new System.Windows.Forms.Label();
             this.textBoxcognome = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(32, 57);
+            this.dataGridView1.Location = new System.Drawing.Point(32, 74);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(718, 411);
             this.dataGridView1.TabIndex = 0;
@@ -60,19 +61,19 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(770, 57);
+            this.button1.Location = new System.Drawing.Point(770, 74);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(212, 68);
             this.button1.TabIndex = 1;
-            this.button1.Text = "CaricaDati";
+            this.button1.Text = "Carica Dati";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(770, 160);
+            this.button2.Location = new System.Drawing.Point(770, 335);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(212, 65);
+            this.button2.Size = new System.Drawing.Size(212, 77);
             this.button2.TabIndex = 2;
             this.button2.Text = "Elimina";
             this.button2.UseVisualStyleBackColor = true;
@@ -82,21 +83,21 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Georgia", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(25, 487);
+            this.label1.Location = new System.Drawing.Point(25, 500);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(381, 38);
+            this.label1.Size = new System.Drawing.Size(240, 38);
             this.label1.TabIndex = 3;
-            this.label1.Text = "ModificaInformazioni";
+            this.label1.Text = "Modifica Dati";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
-            // label2
+            // targa
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(29, 554);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 13);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Targa";
+            this.targa.AutoSize = true;
+            this.targa.Location = new System.Drawing.Point(29, 554);
+            this.targa.Name = "targa";
+            this.targa.Size = new System.Drawing.Size(35, 13);
+            this.targa.TabIndex = 4;
+            this.targa.Text = "Targa";
             // 
             // textBoxtarga
             // 
@@ -106,14 +107,14 @@
             this.textBoxtarga.TabIndex = 5;
             this.textBoxtarga.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
-            // label3
+            // nomeprof
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(176, 554);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(85, 13);
-            this.label3.TabIndex = 6;
-            this.label3.Text = "NomeProfessore";
+            this.nomeprof.AutoSize = true;
+            this.nomeprof.Location = new System.Drawing.Point(176, 554);
+            this.nomeprof.Name = "nomeprof";
+            this.nomeprof.Size = new System.Drawing.Size(88, 13);
+            this.nomeprof.TabIndex = 6;
+            this.nomeprof.Text = "Nome Professore";
             // 
             // textBoxnome
             // 
@@ -124,23 +125,23 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(770, 261);
+            this.button3.Location = new System.Drawing.Point(770, 206);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(212, 63);
+            this.button3.Size = new System.Drawing.Size(212, 66);
             this.button3.TabIndex = 8;
             this.button3.Text = "Modifica";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
-            // label4
+            // accesso
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(373, 554);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(48, 13);
-            this.label4.TabIndex = 9;
-            this.label4.Text = "Accesso";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
+            this.accesso.AutoSize = true;
+            this.accesso.Location = new System.Drawing.Point(373, 554);
+            this.accesso.Name = "accesso";
+            this.accesso.Size = new System.Drawing.Size(48, 13);
+            this.accesso.TabIndex = 9;
+            this.accesso.Text = "Accesso";
+            this.accesso.Click += new System.EventHandler(this.label4_Click);
             // 
             // textBoxaccesso
             // 
@@ -148,15 +149,16 @@
             this.textBoxaccesso.Name = "textBoxaccesso";
             this.textBoxaccesso.Size = new System.Drawing.Size(100, 20);
             this.textBoxaccesso.TabIndex = 10;
+            this.textBoxaccesso.TextChanged += new System.EventHandler(this.textBoxaccesso_TextChanged);
             // 
-            // label5
+            // id
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(524, 554);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(18, 13);
-            this.label5.TabIndex = 11;
-            this.label5.Text = "ID";
+            this.id.AutoSize = true;
+            this.id.Location = new System.Drawing.Point(524, 554);
+            this.id.Name = "id";
+            this.id.Size = new System.Drawing.Size(18, 13);
+            this.id.TabIndex = 11;
+            this.id.Text = "ID";
             // 
             // textBoxid
             // 
@@ -164,6 +166,7 @@
             this.textBoxid.Name = "textBoxid";
             this.textBoxid.Size = new System.Drawing.Size(100, 20);
             this.textBoxid.TabIndex = 12;
+            this.textBoxid.TextChanged += new System.EventHandler(this.textBoxid_TextChanged);
             // 
             // label6
             // 
@@ -177,27 +180,28 @@
             // 
             this.textBoxmail.Location = new System.Drawing.Point(857, 551);
             this.textBoxmail.Name = "textBoxmail";
-            this.textBoxmail.Size = new System.Drawing.Size(100, 20);
+            this.textBoxmail.Size = new System.Drawing.Size(184, 20);
             this.textBoxmail.TabIndex = 14;
+            this.textBoxmail.TextChanged += new System.EventHandler(this.textBoxmail_TextChanged);
             // 
-            // label7
+            // mail
             // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(825, 554);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(26, 13);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Mail";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
+            this.mail.AutoSize = true;
+            this.mail.Location = new System.Drawing.Point(825, 554);
+            this.mail.Name = "mail";
+            this.mail.Size = new System.Drawing.Size(26, 13);
+            this.mail.TabIndex = 15;
+            this.mail.Text = "Mail";
+            this.mail.Click += new System.EventHandler(this.label7_Click);
             // 
-            // label8
+            // cognome
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(661, 554);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 13);
-            this.label8.TabIndex = 16;
-            this.label8.Text = "Cognome";
+            this.cognome.AutoSize = true;
+            this.cognome.Location = new System.Drawing.Point(661, 554);
+            this.cognome.Name = "cognome";
+            this.cognome.Size = new System.Drawing.Size(52, 13);
+            this.cognome.TabIndex = 16;
+            this.cognome.Text = "Cognome";
             // 
             // textBoxcognome
             // 
@@ -206,31 +210,43 @@
             this.textBoxcognome.Size = new System.Drawing.Size(100, 20);
             this.textBoxcognome.TabIndex = 17;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Georgia", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(34, 21);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(555, 41);
+            this.label2.TabIndex = 18;
+            this.label2.Text = "CRUD GESTIONE DATABASE";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1262, 738);
+            this.ClientSize = new System.Drawing.Size(1204, 706);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.textBoxcognome);
-            this.Controls.Add(this.label8);
-            this.Controls.Add(this.label7);
+            this.Controls.Add(this.cognome);
+            this.Controls.Add(this.mail);
             this.Controls.Add(this.textBoxmail);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.textBoxid);
-            this.Controls.Add(this.label5);
+            this.Controls.Add(this.id);
             this.Controls.Add(this.textBoxaccesso);
-            this.Controls.Add(this.label4);
+            this.Controls.Add(this.accesso);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBoxnome);
-            this.Controls.Add(this.label3);
+            this.Controls.Add(this.nomeprof);
             this.Controls.Add(this.textBoxtarga);
-            this.Controls.Add(this.label2);
+            this.Controls.Add(this.targa);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -243,20 +259,21 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label targa;
         private System.Windows.Forms.TextBox textBoxtarga;
-        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label nomeprof;
         private System.Windows.Forms.TextBox textBoxnome;
         private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label accesso;
         private System.Windows.Forms.TextBox textBoxaccesso;
-        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label id;
         private System.Windows.Forms.TextBox textBoxid;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBoxmail;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label mail;
+        private System.Windows.Forms.Label cognome;
         private System.Windows.Forms.TextBox textBoxcognome;
+        private System.Windows.Forms.Label label2;
     }
 }
 

@@ -48,6 +48,9 @@ namespace DatabaseCrud
             CustomizeDataGridView();
             dataGridView1.AutoGenerateColumns = true;
 
+            dataGridView1.EditMode = DataGridViewEditMode.EditOnKeystrokeOrF2;
+            dataGridView1.AllowUserToAddRows = false;  // Disabilita la possibilità di aggiungere righe manualmente
+
         }
 
 
@@ -58,6 +61,8 @@ namespace DatabaseCrud
             {
                 // Invia una richiesta HTTP GET all'API
                 HttpResponseMessage response = await client.GetAsync(url);
+               
+
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -107,7 +112,7 @@ namespace DatabaseCrud
 
             string apiSocket = apiIp + ':' + apiPort;
 
-            string apiUrl = "http://" + apiSocket + "/all?key=" + apiKey;  // Indirizzo dell'API
+            string apiUrl = "http://" + apiSocket + "/api/records?key=" + apiKey;  // Indirizzo dell'API
 
             // Carica i dati dall'API e li popola nel DataGridView
             await LoadDataFromApi(apiUrl);
@@ -119,7 +124,7 @@ namespace DatabaseCrud
             string apiKey = Environment.GetEnvironmentVariable("API_KEY");
             string apiSocket = apiIp + ':' + apiPort;
 
-            string apiUrl = "http://" + apiSocket + "/update"; // Endpoint di aggiornamento
+            string apiUrl = "http://" + apiSocket + $"/update/professore/{updatedData.id_professore}?key=" + apiKey;
 
             var content = new StringContent(JsonConvert.SerializeObject(updatedData), Encoding.UTF8, "application/json");
 
@@ -128,6 +133,7 @@ namespace DatabaseCrud
             if (response.IsSuccessStatusCode)
             {
                 MessageBox.Show("Dati aggiornati con successo!");
+                 apiUrl = "http://" + apiSocket + "/api/records?key=" + apiKey;  // Indirizzo dell'API
                 // Ricarica i dati nel DataGridView
                 await LoadDataFromApi(apiUrl);
             }
@@ -178,31 +184,79 @@ namespace DatabaseCrud
 
         private void button2_Click(object sender, EventArgs e)
         {
+ 
         }
 
-        private async void button3_Click(object sender, EventArgs e)
+        private  async void button3_Click(object sender, EventArgs e)
         {
-            // Ottieni i dati modificati dai TextBox
-            ApiData updatedData = new ApiData
+            if (dataGridView1.SelectedCells.Count > 0)
             {
-                Nome = textBoxnome.Text,
-                Cognome = textBoxcognome.Text,
-                Mail = textBoxmail.Text,
-                Targa = textBoxtarga.Text,
-                zona_accesso = textBoxaccesso.Text,
-                id_professore = textBoxid.Text, 
-            };
+                // Ottieni l'indice della riga selezionata
+                int rowIndex = dataGridView1.SelectedCells[0].RowIndex;
 
-            string apiIp = Environment.GetEnvironmentVariable("API_IP");
-            string apiPort = Environment.GetEnvironmentVariable("API_PORT");
-            string apiKey = Environment.GetEnvironmentVariable("API_KEY");
-            string apiSocket = apiIp + ':' + apiPort;
-            // Aggiorna i dati sul server
-            await LoadDataFromApi("http://" + apiSocket + "/all?key=" + apiKey);  // Usa l'endpoint per recuperare tutti i dati
+                // Ottieni la riga selezionata
+                var row = dataGridView1.Rows[rowIndex];
 
+                // Recupera i nuovi valori dalle TextBox
+                string updatedNome = textBoxnome.Text;
+                string updatedCognome = textBoxcognome.Text;
+                string updatedMail = textBoxmail.Text;
+                string updatedTarga = textBoxtarga.Text;
+                string updatedZonaAccesso = textBoxaccesso.Text;
+                string updatedIdProfessore = textBoxid.Text;
+
+                // Aggiorna i valori delle celle nella riga selezionata
+                row.Cells["Nome"].Value = updatedNome;
+                row.Cells["Cognome"].Value = updatedCognome;
+                row.Cells["Mail"].Value = updatedMail;
+                row.Cells["Targa"].Value = updatedTarga;
+                row.Cells["zona_accesso"].Value = updatedZonaAccesso;
+                row.Cells["id_professore"].Value = updatedIdProfessore;
+
+                // Mostra un messaggio che i dati sono stati aggiornati localmente
+                MessageBox.Show("Dati aggiornati nel DataGridView!");
+
+
+                var ad = new ApiData
+                {
+                    Nome = updatedNome,
+                    Cognome = updatedCognome,
+                    Mail = updatedMail,
+                    Targa = updatedTarga,
+                    zona_accesso = updatedZonaAccesso,
+                    id_professore = updatedIdProfessore
+                };
+
+                await UpdateDataOnApi(ad);
+            }
+            else
+            {
+                // Se non è stata selezionata alcuna riga, mostra un messaggio di errore
+                MessageBox.Show("Nessuna riga selezionata per l'aggiornamento.");
+            }
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxmail_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxaccesso_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBoxid_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
         {
 
         }

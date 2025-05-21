@@ -1,14 +1,17 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\ravasio.22162\\Desktop\\GitHub\\espckin\\DatabaseCrud\\",
+  "WorkspaceRootPath": "C:\\Users\\omara.21181\\Downloads\\DatabaseCrud (1)\\DatabaseCrud\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|c:\\users\\ravasio.22162\\desktop\\github\\espckin\\databasecrud\\databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|c:\\users\\omara.21181\\downloads\\databasecrud (1)\\databasecrud\\databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|solutionrelative:databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|C:\\Users\\omara.21181\\Downloads\\DatabaseCrud (1)\\DatabaseCrud\\databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|solutionrelative:databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|C:\\Users\\ravasio.22162\\Desktop\\GitHub\\espckin\\DatabaseCrud\\databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{7BCF1D49-BFDF-41C1-BC51-BA8C23A9FAA3}|DatabaseCrud\\DatabaseCrud.csproj|solutionrelative:databasecrud\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\omara.21181\\Downloads\\db_handler-20250321T135627Z-001\\db_handler\\api.py||{3B902123-F8A7-4915-9F01-361F908088D0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,32 +21,45 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Form1.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\ravasio.22162\\Desktop\\GitHub\\espckin\\DatabaseCrud\\DatabaseCrud\\Form1.cs",
+              "Title": "Form1.cs",
+              "DocumentMoniker": "C:\\Users\\omara.21181\\Downloads\\DatabaseCrud (1)\\DatabaseCrud\\DatabaseCrud\\Form1.cs",
               "RelativeDocumentMoniker": "DatabaseCrud\\Form1.cs",
-              "ToolTip": "C:\\Users\\ravasio.22162\\Desktop\\GitHub\\espckin\\DatabaseCrud\\DatabaseCrud\\Form1.cs [Design]",
-              "RelativeToolTip": "DatabaseCrud\\Form1.cs [Design]",
+              "ToolTip": "C:\\Users\\omara.21181\\Downloads\\DatabaseCrud (1)\\DatabaseCrud\\DatabaseCrud\\Form1.cs",
+              "RelativeToolTip": "DatabaseCrud\\Form1.cs",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAcwNoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-17T13:25:32.574Z",
-              "EditorCaption": " [Design]"
+              "WhenOpened": "2025-02-07T14:32:51.034Z",
+              "IsPinned": true,
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "api.py",
+              "DocumentMoniker": "C:\\Users\\omara.21181\\Downloads\\db_handler-20250321T135627Z-001\\db_handler\\api.py",
+              "RelativeDocumentMoniker": "..\\..\\db_handler-20250321T135627Z-001\\db_handler\\api.py",
+              "ToolTip": "C:\\Users\\omara.21181\\Downloads\\db_handler-20250321T135627Z-001\\db_handler\\api.py",
+              "RelativeToolTip": "..\\..\\db_handler-20250321T135627Z-001\\db_handler\\api.py",
+              "ViewState": "AgIAAHkAAAAAAAAAAAAAAJEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002457|",
+              "WhenOpened": "2025-03-21T14:27:37.116Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Form1.cs",
-              "DocumentMoniker": "C:\\Users\\ravasio.22162\\Desktop\\GitHub\\espckin\\DatabaseCrud\\DatabaseCrud\\Form1.cs",
+              "Title": "Form1.cs [Progettazione]",
+              "DocumentMoniker": "C:\\Users\\omara.21181\\Downloads\\DatabaseCrud (1)\\DatabaseCrud\\DatabaseCrud\\Form1.cs",
               "RelativeDocumentMoniker": "DatabaseCrud\\Form1.cs",
-              "ToolTip": "C:\\Users\\ravasio.22162\\Desktop\\GitHub\\espckin\\DatabaseCrud\\DatabaseCrud\\Form1.cs",
-              "RelativeToolTip": "DatabaseCrud\\Form1.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAHcAAAA1AAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\omara.21181\\Downloads\\DatabaseCrud (1)\\DatabaseCrud\\DatabaseCrud\\Form1.cs [Progettazione]",
+              "RelativeToolTip": "DatabaseCrud\\Form1.cs [Progettazione]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-07T14:32:51.034Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-17T13:25:32.574Z",
+              "EditorCaption": " [Progettazione]"
             }
           ]
         }

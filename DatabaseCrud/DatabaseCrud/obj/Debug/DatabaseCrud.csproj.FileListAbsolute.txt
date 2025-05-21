@@ -20,3 +20,47 @@ C:\Users\ravasio.22162\source\repos\DatabaseCrud\DatabaseCrud\bin\Debug\Common.L
 C:\Users\ravasio.22162\source\repos\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.pdb
 C:\Users\ravasio.22162\source\repos\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.xml
 C:\Users\ravasio.22162\source\repos\DatabaseCrud\DatabaseCrud\bin\Debug\ObjectPrinter.xml
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\DatabaseCrud.exe.config
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\DatabaseCrud.exe
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\DatabaseCrud.pdb
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.dll
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.dll
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Newtonsoft.Json.dll
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\ObjectPrinter.dll
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\SimpleSettings.dll
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.pdb
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.xml
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.pdb
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.xml
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\Newtonsoft.Json.xml
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\bin\Debug\ObjectPrinter.xml
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.csproj.AssemblyReference.cache
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.Form1.resources
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.Properties.Resources.resources
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.csproj.GenerateResource.cache
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.csproj.CoreCompileInputs.cache
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\Database.2B14C4D2.Up2Date
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.exe
+C:\Users\ravasio.22162\Desktop\GitHub\espckin\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.pdb
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\DatabaseCrud.exe.config
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\DatabaseCrud.exe
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\DatabaseCrud.pdb
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.dll
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.dll
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Newtonsoft.Json.dll
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\ObjectPrinter.dll
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\SimpleSettings.dll
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.pdb
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.xml
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.pdb
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Common.Logging.Core.xml
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\Newtonsoft.Json.xml
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\bin\Debug\ObjectPrinter.xml
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.csproj.AssemblyReference.cache
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.Form1.resources
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.Properties.Resources.resources
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.csproj.GenerateResource.cache
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.csproj.CoreCompileInputs.cache
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\Database.2B14C4D2.Up2Date
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.exe
+C:\Users\omara.21181\Downloads\DatabaseCrud (1)\DatabaseCrud\DatabaseCrud\obj\Debug\DatabaseCrud.pdb
