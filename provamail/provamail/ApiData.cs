@@ -8,11 +8,11 @@ namespace provamail
 {
     internal class ApiData
     {
-        public string Cognome { get; set; }
+        public string cognome { get; set; }
         public string id_professore { get; set; }
-        public string Mail { get; set; }
-        public string Nome { get; set; }
-        public string Targa { get; set; }
+        public string mail { get; set; }
+        public string nome { get; set; }
+        public string targa { get; set; }
         public string zona_accesso { get; set; }
     }
 }

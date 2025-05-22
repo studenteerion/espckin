@@ -6,6 +6,16 @@ using System.Threading.Tasks;
 
 namespace provamail
 {
+    internal class bbox
+    {
+        public int x_min { get; set; }
+
+        public int y_min { get; set; }
+
+        public int x_max { get; set; }
+
+        public int y_max { get; set; }
+    }
     internal class Targa
     {
         // nome della camera
@@ -26,15 +36,6 @@ namespace provamail
         //bbox 
         public bbox bounding_box { get; set; }
 
-        public class bbox
-        {
-            public int x_min { get; set; }
-
-            public int y_min { get; set; }
-
-            public int x_max { get; set; }
-
-            public int y_max { get; set; }
-        }
+       
     }
 }
