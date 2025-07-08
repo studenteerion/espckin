@@ -28,7 +28,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `accesso` (
   `id_accesso` int(11) NOT NULL,
-  `zona_accesso` varchar(20) NOT NULL
+  `zona_accesso` varchar(20) NOT NULL,
+  `ip` varchar(50) NOT NULL,
+  `descrizione` text(500),
+  `coordinates` varchar(100)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -98,6 +101,19 @@ CREATE TABLE `professore` (
 INSERT INTO `professore` (`id_professore`, `nome`, `cognome`, `mail`, `id_zona`) VALUES
 ('mat', 'Matilde', 'Ravasio', 'matilde.ravasio.studente@itispaleocapa.it', 1),
 ('ciao', 'Fabio', 'Colombo', 'colombo.fabio.studente@itispaleocapa.it', 0);
+
+
+CREATE TABLE utenti (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  api_key VARCHAR(50) NOT NULL UNIQUE,
+  ruolo VARCHAR(20) DEFAULT 'user' -- Esempio: frontend, prof, admin
+);
+
+INSERT INTO utenti (username, api_key, ruolo)
+VALUES 
+('frontend', 'BJFLMJTARU', 'frontend'),
+('prof', 'VYPPMADJXD', 'prof');
 
 --
 -- Indici per le tabelle scaricate

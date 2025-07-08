@@ -29,12 +29,6 @@ logging.basicConfig(
     handlers=[logging.StreamHandler()]
 )
 
-# TODO: caricare utenti da database
-ALLOWED_USERS = {
-    "frontend": "BJFLMJTARU",
-    "prof": "VYPPMADJXD"
-}
-
 # DB connection    TODO: creare sottoutenti per limitare l'accesso al database !!utilizzare le view!!
 conn = mysql.connector.connect(
     host="localhost",
@@ -46,11 +40,12 @@ cursor = conn.cursor(dictionary=True)
 
 # ---------- AUTH ----------
 def authenticate(route_name, api_key):
-    user = next((u for u, k in ALLOWED_USERS.items() if k == api_key), None)
+    cursor.execute("SELECT * FROM utenti WHERE api_key = %s", (api_key,))
+    user = cursor.fetchone()
     if not user:
         logging.warning(f"Unauthorized access attempt to '{route_name}' with key '{api_key}'")
         abort(401, description="Unauthorized")
-    logging.info(f"Access granted: user='{user}' route='{route_name}'")
+    logging.info(f"Access granted: user='{user['username']}' route='{route_name}'")
     return True
 
 
@@ -304,6 +299,119 @@ def delete_record(table, record_id):
         logging.info(f"Record deleted from '{table}' ID {record_id}")
         return jsonify({"message": "Deleted"})
     return jsonify({"message": "Not found"}), 404
+
+# utenti
+@app.route('/api/utenti', methods=['GET'])
+def get_utenti():
+    authenticate("get_utenti", request.args.get('key'))
+    cursor.execute("SELECT id, username, ruolo FROM utenti")
+    return jsonify(cursor.fetchall())
+
+@app.route('/api/utenti', methods=['POST'])
+def create_utente():
+    authenticate("create_utente", request.args.get('key'))
+    data = request.json
+    cursor.execute("INSERT INTO utenti (username, api_key, ruolo) VALUES (%s, %s, %s)", (data['username'], data['api_key'], data.get('ruolo', 'user')))
+    conn.commit()
+    return jsonify({"message": "Utente creato", "id": cursor.lastrowid})
+
+@app.route('/api/utenti/<int:id>', methods=['PUT'])
+def update_utente(id):
+    authenticate("update_utente", request.args.get('key'))
+    data = request.json
+    cursor.execute("UPDATE utenti SET username=%s, api_key=%s, ruolo=%s WHERE id=%s", (data['username'], data['api_key'], data['ruolo'], id))
+    conn.commit()
+    return jsonify({"message": "Utente aggiornato"})
+
+@app.route('/api/utenti/<int:id>', methods=['DELETE'])
+def delete_utente(id):
+    authenticate("delete_utente", request.args.get('key'))
+    cursor.execute("DELETE FROM utenti WHERE id=%s", (id,))
+    conn.commit()
+    return jsonify({"message": "Utente eliminato"})
+
+# accesso
+@app.route('/api/accesso', methods=['GET'])
+def get_accesso():
+    authenticate("get_accesso", request.args.get('key'))
+    cursor.execute("SELECT * FROM accesso")
+    return jsonify(cursor.fetchall())
+
+@app.route('/api/accesso', methods=['POST'])
+def create_accesso():
+    authenticate("create_accesso", request.args.get('key'))
+    data = request.json
+    cursor.execute("INSERT INTO accesso (id_accesso, zona_accesso, ip, descrizione, coordinates) VALUES (%s, %s, %s, %s, %s)", (
+        data['id_accesso'], data['zona_accesso'], data.get('ip', ''), data.get('descrizione', ''), data.get('coordinates', '')
+    ))
+    conn.commit()
+    return jsonify({"message": "Accesso creato"})
+
+@app.route('/api/accesso/<int:id>', methods=['PUT'])
+def update_accesso(id):
+    authenticate("update_accesso", request.args.get('key'))
+    data = request.json
+    cursor.execute("UPDATE accesso SET zona_accesso=%s, ip=%s, descrizione=%s, coordinates=%s WHERE id_accesso=%s", (
+        data['zona_accesso'], data['ip'], data['descrizione'], data['coordinates'], id
+    ))
+    conn.commit()
+    return jsonify({"message": "Accesso aggiornato"})
+
+@app.route('/api/accesso/<int:id>', methods=['DELETE'])
+def delete_accesso(id):
+    authenticate("delete_accesso", request.args.get('key'))
+    cursor.execute("DELETE FROM accesso WHERE id_accesso=%s", (id,))
+    conn.commit()
+    return jsonify({"message": "Accesso eliminato"})
+
+#macchine
+@app.route('/api/macchine', methods=['GET'])
+def get_macchine():
+    authenticate("get_macchine", request.args.get('key'))
+    cursor.execute("SELECT * FROM macchine")
+    return jsonify(cursor.fetchall())
+
+@app.route('/api/macchine', methods=['POST'])
+def create_macchina():
+    authenticate("create_macchina", request.args.get('key'))
+    data = request.json
+    cursor.execute("INSERT INTO macchine (targa) VALUES (%s)", (data['targa'],))
+    conn.commit()
+    return jsonify({"message": "Macchina creata"})
+
+@app.route('/api/macchine/<string:targa>', methods=['DELETE'])
+def delete_macchina(targa):
+    authenticate("delete_macchina", request.args.get('key'))
+    cursor.execute("DELETE FROM macchine WHERE targa=%s", (targa,))
+    conn.commit()
+    return jsonify({"message": "Macchina eliminata"})
+
+#macchina professore
+@app.route('/api/macchina_professore', methods=['GET'])
+def get_macchina_prof():
+    authenticate("get_macchina_prof", request.args.get('key'))
+    cursor.execute("SELECT * FROM macchina_professore")
+    return jsonify(cursor.fetchall())
+
+@app.route('/api/macchina_professore', methods=['POST'])
+def create_macchina_prof():
+    authenticate("create_macchina_prof", request.args.get('key'))
+    data = request.json
+    cursor.execute("INSERT INTO macchina_professore (id_macchina, id_professore) VALUES (%s, %s)", (
+        data['id_macchina'], data['id_professore']
+    ))
+    conn.commit()
+    return jsonify({"message": "Associazione creata"})
+
+@app.route('/api/macchina_professore', methods=['DELETE'])
+def delete_macchina_prof():
+    authenticate("delete_macchina_prof", request.args.get('key'))
+    data = request.json
+    cursor.execute("DELETE FROM macchina_professore WHERE id_macchina=%s AND id_professore=%s", (
+        data['id_macchina'], data['id_professore']
+    ))
+    conn.commit()
+    return jsonify({"message": "Associazione eliminata"})
 
 
 # ---------- MAIN ----------
