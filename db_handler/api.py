@@ -48,7 +48,7 @@ def authenticate(route_name, api_key):
     logging.info(f"Access granted: user='{user['username']}' route='{route_name}'")
     return True
 
-
+# route per mostrare lo static
 @app.route('/')
 def homepage():
     """Serve homepage static
@@ -65,7 +65,7 @@ def homepage():
     authenticate("homepage", request.args.get('key'))
     return send_from_directory("static", "Homepage.html")
 
-
+# mostra tutti i record presenti nel db
 @app.route('/api/records', methods=['GET'])
 def get_all_records():
     """Get all records
@@ -95,7 +95,7 @@ def get_all_records():
     cursor.execute(query)
     return jsonify(cursor.fetchall())
 
-
+# restituisce i professori passando la stringa della targa
 @app.route('/api/plate/<string:plate>', methods=['GET'])
 def get_by_plate(plate):
     """Get teacher by plate
@@ -126,7 +126,7 @@ def get_by_plate(plate):
     cursor.execute(query, (plate,))
     return jsonify(cursor.fetchall())
 
-
+# restituisce le targhe associate al professore passando l'id del professore
 @app.route('/api/teacher/<string:teacher_id>', methods=['GET'])
 def get_by_teacher(teacher_id):
     """Get plates by teacher ID
@@ -157,7 +157,7 @@ def get_by_teacher(teacher_id):
     cursor.execute(query, (teacher_id,))
     return jsonify(cursor.fetchall())
 
-
+# restituisce tutti i professori in base alla zona d'ingresso associata
 @app.route('/api/entry/<string:zone>', methods=['GET'])
 def get_by_entry(zone):
     """Get teachers by access zone
@@ -187,7 +187,7 @@ def get_by_entry(zone):
     return jsonify(cursor.fetchall())
 
 
-# ---------- CRUD ----------
+# ---------- CRUD ----------  Inserimento valore compatibile con le tabelle
 @app.route('/api/<string:table>', methods=['POST'])
 def create_record(table):
     """Create new record in specified table
@@ -216,7 +216,7 @@ def create_record(table):
     logging.info(f"Record created in '{table}' with ID {cursor.lastrowid}")
     return jsonify({"message": "Created", "id": cursor.lastrowid}), 201
 
-
+# lettura tabella completa
 @app.route('/api/<string:table>', methods=['GET'])
 def read_table(table):
     """Read all records from table
@@ -235,7 +235,7 @@ def read_table(table):
     cursor.execute(query)
     return jsonify(cursor.fetchall())
 
-
+# modifica record specifico nella tabella
 @app.route('/api/<string:table>/<int:record_id>', methods=['PUT'])
 def update_record(table, record_id):
     """Update record by ID in specified table
@@ -271,7 +271,7 @@ def update_record(table, record_id):
         return jsonify({"message": "Updated"})
     return jsonify({"message": "Not found"}), 404
 
-
+# elimina record specifico nella tabella
 @app.route('/api/<string:table>/<int:record_id>', methods=['DELETE'])
 def delete_record(table, record_id):
     """Delete record by ID from table
@@ -300,13 +300,14 @@ def delete_record(table, record_id):
         return jsonify({"message": "Deleted"})
     return jsonify({"message": "Not found"}), 404
 
-# utenti
+# CRUD utenti
+#leggi
 @app.route('/api/utenti', methods=['GET'])
 def get_utenti():
     authenticate("get_utenti", request.args.get('key'))
     cursor.execute("SELECT id, username, ruolo FROM utenti")
     return jsonify(cursor.fetchall())
-
+#crea
 @app.route('/api/utenti', methods=['POST'])
 def create_utente():
     authenticate("create_utente", request.args.get('key'))
@@ -314,7 +315,7 @@ def create_utente():
     cursor.execute("INSERT INTO utenti (username, api_key, ruolo) VALUES (%s, %s, %s)", (data['username'], data['api_key'], data.get('ruolo', 'user')))
     conn.commit()
     return jsonify({"message": "Utente creato", "id": cursor.lastrowid})
-
+#modifica
 @app.route('/api/utenti/<int:id>', methods=['PUT'])
 def update_utente(id):
     authenticate("update_utente", request.args.get('key'))
@@ -322,21 +323,21 @@ def update_utente(id):
     cursor.execute("UPDATE utenti SET username=%s, api_key=%s, ruolo=%s WHERE id=%s", (data['username'], data['api_key'], data['ruolo'], id))
     conn.commit()
     return jsonify({"message": "Utente aggiornato"})
-
+#elimina
 @app.route('/api/utenti/<int:id>', methods=['DELETE'])
 def delete_utente(id):
     authenticate("delete_utente", request.args.get('key'))
     cursor.execute("DELETE FROM utenti WHERE id=%s", (id,))
     conn.commit()
     return jsonify({"message": "Utente eliminato"})
-
-# accesso
+#CRUD accessi
+# leggi
 @app.route('/api/accesso', methods=['GET'])
 def get_accesso():
     authenticate("get_accesso", request.args.get('key'))
     cursor.execute("SELECT * FROM accesso")
     return jsonify(cursor.fetchall())
-
+#crea
 @app.route('/api/accesso', methods=['POST'])
 def create_accesso():
     authenticate("create_accesso", request.args.get('key'))
@@ -346,7 +347,7 @@ def create_accesso():
     ))
     conn.commit()
     return jsonify({"message": "Accesso creato"})
-
+#modifica
 @app.route('/api/accesso/<int:id>', methods=['PUT'])
 def update_accesso(id):
     authenticate("update_accesso", request.args.get('key'))
@@ -356,21 +357,21 @@ def update_accesso(id):
     ))
     conn.commit()
     return jsonify({"message": "Accesso aggiornato"})
-
+#elimina
 @app.route('/api/accesso/<int:id>', methods=['DELETE'])
 def delete_accesso(id):
     authenticate("delete_accesso", request.args.get('key'))
     cursor.execute("DELETE FROM accesso WHERE id_accesso=%s", (id,))
     conn.commit()
     return jsonify({"message": "Accesso eliminato"})
-
-#macchine
+#CRUD veicoli
+#leggi
 @app.route('/api/macchine', methods=['GET'])
 def get_macchine():
     authenticate("get_macchine", request.args.get('key'))
     cursor.execute("SELECT * FROM macchine")
     return jsonify(cursor.fetchall())
-
+#crea
 @app.route('/api/macchine', methods=['POST'])
 def create_macchina():
     authenticate("create_macchina", request.args.get('key'))
@@ -378,21 +379,21 @@ def create_macchina():
     cursor.execute("INSERT INTO macchine (targa) VALUES (%s)", (data['targa'],))
     conn.commit()
     return jsonify({"message": "Macchina creata"})
-
+#elimina
 @app.route('/api/macchine/<string:targa>', methods=['DELETE'])
 def delete_macchina(targa):
     authenticate("delete_macchina", request.args.get('key'))
     cursor.execute("DELETE FROM macchine WHERE targa=%s", (targa,))
     conn.commit()
     return jsonify({"message": "Macchina eliminata"})
-
+#legge tutte le associazioni tra macchine e professori
 #macchina professore
 @app.route('/api/macchina_professore', methods=['GET'])
 def get_macchina_prof():
     authenticate("get_macchina_prof", request.args.get('key'))
     cursor.execute("SELECT * FROM macchina_professore")
     return jsonify(cursor.fetchall())
-
+#crea associazioni tra machcine e professori
 @app.route('/api/macchina_professore', methods=['POST'])
 def create_macchina_prof():
     authenticate("create_macchina_prof", request.args.get('key'))
@@ -402,7 +403,7 @@ def create_macchina_prof():
     ))
     conn.commit()
     return jsonify({"message": "Associazione creata"})
-
+#elimina associazioni tra macchine e professori
 @app.route('/api/macchina_professore', methods=['DELETE'])
 def delete_macchina_prof():
     authenticate("delete_macchina_prof", request.args.get('key'))
